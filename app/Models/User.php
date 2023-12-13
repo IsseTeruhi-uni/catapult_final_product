@@ -57,4 +57,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Group::class);
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }
