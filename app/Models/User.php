@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function skills() // <- 新しく追加
+    {
+        return $this->belongsToMany(Skill::class)->withTimeStamps();
+    }
+
+    public function hobbies() // <- 新しく追加
+    {
+        return $this->belongsToMany(Hobby::class)->withTimeStamps();
+    }
 }
