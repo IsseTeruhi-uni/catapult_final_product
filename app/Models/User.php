@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Hobby::class)->withTimeStamps();
     }
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
 }
