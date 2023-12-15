@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('tweet', QrController::class);
+
 Route::get('/', function () {
     return view('welcome');
 });
