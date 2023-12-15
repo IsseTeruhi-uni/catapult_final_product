@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'company_id',
+        'group_id',
+        'post_id',
+        'description',
+
     ];
 
     /**
@@ -43,14 +48,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function skills() // <- 新しく追加
+    public function skills()
     {
-        return $this->belongsToMany(Skill::class)->withTimeStamps();
+        return $this->belongsToMany(Skill::class, 'skill_user', 'user_id', 'skill_id')->withTimeStamps();
     }
 
-    public function hobbies() // <- 新しく追加
+    public function hobbies()
     {
-        return $this->belongsToMany(Hobby::class)->withTimeStamps();
+        return $this->belongsToMany(Hobby::class, 'hobby_user', 'user_id', 'hobby_id')->withTimeStamps();
     }
 
     public function group()
