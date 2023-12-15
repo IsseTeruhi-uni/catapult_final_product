@@ -14,4 +14,14 @@
             </div>
         </div>
     </div>
+    
+    {{QrCode::size(100)->generate('https://home.gattscom.com')}}
+    <!--? echo QrCode::size(100)--->generate('https://home.gattscom.com');?>
+
+    <div class="visible-print text-center">
+        {!! QrCode::size(100)->generate(Request::url()); !!}
+        <p>スキャンして元のページに戻ります</p>
+    </div>
+
+    
 </x-app-layout>

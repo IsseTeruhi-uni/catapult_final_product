@@ -14,7 +14,8 @@ class QrController extends Controller
     public function index()
     {
         //
-        return response()->view('tweet.index');
+        $tweets = [];
+  return response()->view('Qr.home',compact('tweets'));
     }
 
     /**
@@ -23,7 +24,7 @@ class QrController extends Controller
     public function create()
     {
         //
-        return response()->view('tweet.create');
+        return response()->view('Qr.create');
     }
 
     /**
