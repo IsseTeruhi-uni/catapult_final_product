@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'company_id',
+        'group_id',
+        'post_id',
+        'description',
+
     ];
 
     /**
@@ -42,4 +47,29 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, 'skill_user', 'user_id', 'skill_id')->withTimeStamps();
+    }
+
+    public function hobbies()
+    {
+        return $this->belongsToMany(Hobby::class, 'hobby_user', 'user_id', 'hobby_id')->withTimeStamps();
+    }
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
 }
