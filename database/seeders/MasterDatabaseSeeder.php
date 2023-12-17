@@ -17,7 +17,7 @@ class MasterDatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $president = User::find(2);
+        $president = User::find(2); //idが2のユーザを$presidentに格納
 
 
         // ロール作成
@@ -30,7 +30,7 @@ class MasterDatabaseSeeder extends Seeder
         // admin役割にregister権限を付与
         $adminRole->givePermissionTo($registerPermission);
 
-        // 社長にadminを割り当て
+        // $presidentにadminを割り当て
         $president->assignRole($adminRole);
     }
 }

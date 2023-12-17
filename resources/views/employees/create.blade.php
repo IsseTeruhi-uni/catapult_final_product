@@ -40,10 +40,12 @@
                             </select>
                         </div>
 
-                        <fieldset class="mb-6">
-                            <legend class="block font-medium text-sm mb-2">スキル</legend>
-                            <div class="space-y-2">
-                                <div class="flex items-center">
+                        <div id="skills-container">
+                            <div class="mb-4">
+                                <label class="text-gray-700 dark:text-gray-300">スキル:</label>
+                                <!--<legend class="block font-medium text-sm mb-2">スキル</legend>
+                            <div class="space-y-2"> -->
+                                <!-- <div class="flex items-center">
                                     <input id="C" name="skills[]" type="checkbox" value="1" class="form-checkbox h-5 w-5 text-indigo-600">
                                     <label for="C" class="ml-2">C</label>
                                 </div>
@@ -74,12 +76,28 @@
                                 <div class="flex items-center">
                                     <input id="PHP" name="skills[]" type="checkbox" value="8" class="form-checkbox h-5 w-5 text-indigo-600">
                                     <label for="PHP" class="ml-2">PHP</label>
-                                </div>
+                                </div> -->
                                 <!-- 他のスキルを追加 -->
-                            </div>
-                        </fieldset>
 
-                        <fieldset class="mb-6">
+                                <select name="skills[]" class="form-select" required>
+                                    <option value="1">C</option>
+                                    <option value="2">C#</option>
+                                    <option value="3">C++</option>
+                                    <option value="4">Java</option>
+                                    <option value="5">JavaScript</option>
+                                    <option value="6">Ruby</option>
+                                    <option value="7">Python</option>
+                                    <option value="8">PHP</option>
+                                    <!-- 追加のオプションを記述 -->
+                                </select>
+                                <button type="button" onclick="addSkill()" class="add-button">Add+</button>
+                            </div>
+                        </div>
+
+                        <div id="hobbies-container">
+                            <div class="mb-4">
+                                <label class="text-gray-700 dark:text-gray-300">趣味:</label>
+                                <!--<fieldset class="mb-6">
                             <legend class="block font-medium text-sm mb-2">趣味</legend>
                             <div class="space-y-2">
                                 <div class="flex items-center">
@@ -143,7 +161,30 @@
                                     <label for="hobby_15" class="ml-2">カメラ</label>
                                 </div>
                             </div>
-                        </fieldset>
+                        </fieldset> -->
+
+                                <select name="hobbies[]" class="form-select" required>
+                                    <option value="1">映画鑑賞</option>
+                                    <option value="2">音楽鑑賞</option>
+                                    <option value="3">キャンプ</option>
+                                    <option value="4">筋トレ</option>
+                                    <option value="5">ヨガ</option>
+                                    <option value="6">ランニング</option>
+                                    <option value="7">ゲーム</option>
+                                    <option value="8">旅行</option>
+                                    <option value="9">読書</option>
+                                    <option value="10">料理</option>
+                                    <option value="11">野球観戦</option>
+                                    <option value="12">釣り</option>
+                                    <option value="13">麻雀</option>
+                                    <option value="14">ゴルフ</option>
+                                    <option value="15">カメラ</option>
+
+                                    <!-- 追加のオプションを記述 -->
+                                </select>
+                                <button type="button" onclick="addHobby()" class="add-button">Add+</button>
+                            </div>
+                        </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <label for="description" class="text-gray-700 dark:text-gray-300">自己紹介文:</label>
@@ -161,4 +202,107 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function addSkill() {
+            const container = document.getElementById('skills-container');
+            const selects = container.querySelectorAll('select[name="skills[]"]');
+
+            if (selects.length < 3) {
+                const newSelect = selects[0].cloneNode(true);
+
+                for (let i = 0; i < selects.length; i++) {
+                    const options = newSelect.querySelectorAll('option');
+                    const selectedOptions = selects[i].querySelectorAll('option:checked');
+                    selectedOptions.forEach(selectedOption => {
+                        const selectedValue = selectedOption.getAttribute('value');
+                        const removeIndex = Array.from(options).findIndex(option => option.value === selectedValue);
+                        if (removeIndex !== -1) {
+                            options[removeIndex].remove();
+                        }
+                    });
+                }
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.classList.add('remove-button'); // remove-buttonクラスを追加
+                removeButton.addEventListener('click', function() {
+                    container.removeChild(divWrapper);
+                });
+
+                const divWrapper = document.createElement('div');
+                divWrapper.classList.add('mb-4');
+                divWrapper.appendChild(newSelect);
+                divWrapper.appendChild(removeButton);
+
+                container.appendChild(divWrapper);
+            } else {
+                alert('最大3つまでしか追加できません。');
+            }
+        }
+
+        function addHobby() {
+            const container = document.getElementById('hobbies-container');
+            const selects = container.querySelectorAll('select[name="hobbies[]"]');
+
+            if (selects.length < 3) {
+                const newSelect = selects[0].cloneNode(true);
+
+                for (let i = 0; i < selects.length; i++) {
+                    const options = newSelect.querySelectorAll('option');
+                    const selectedOptions = selects[i].querySelectorAll('option:checked');
+                    selectedOptions.forEach(selectedOption => {
+                        const selectedValue = selectedOption.getAttribute('value');
+                        const removeIndex = Array.from(options).findIndex(option => option.value === selectedValue);
+                        if (removeIndex !== -1) {
+                            options[removeIndex].remove();
+                        }
+                    });
+                }
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.classList.add('remove-button'); // remove-buttonクラスを追加
+                removeButton.addEventListener('click', function() {
+                    container.removeChild(divWrapper);
+                });
+
+                const divWrapper = document.createElement('div');
+                divWrapper.classList.add('mb-4');
+                divWrapper.appendChild(newSelect);
+                divWrapper.appendChild(removeButton);
+
+                container.appendChild(divWrapper);
+            } else {
+                alert('最大3つまでしか追加できません。');
+            }
+        }
+    </script>
+
+    <style>
+        .add-button {
+            /* ボタンのスタイル */
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 8px;
+            /* ボタン間の余白 */
+        }
+
+        .remove-button {
+            /* ボタンのスタイル */
+            padding: 8px 16px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 8px;
+            /* ボタン間の余白 */
+        }
+    </style>
+
 </x-app-layout>
