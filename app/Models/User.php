@@ -26,6 +26,7 @@ class User extends Authenticatable
         'group_id',
         'post_id',
         'description',
+        'profile_photo_path',
 
     ];
 
