@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeRequest;
+use App\Models\Company;
+use App\Models\Group;
+use App\Models\Hobby;
+use App\Models\Post;
+use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,7 +15,13 @@ class EmployeeController extends Controller
 {
     public function create()
     {
-        return response()->view('employees.create');
+        $companies = Company::all();
+        $groups = Group::all();
+        $posts = Post::all();
+        $skills = Skill::all();
+        $hobbies = Hobby::all();
+
+        return response()->view('employees.create', compact('companies', 'groups', 'posts', 'skills', 'hobbies'));
     }
 
     public function store(EmployeeRequest $request)

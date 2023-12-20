@@ -17,26 +17,23 @@
                         <div class="mb-4">
                             <label for="company_id" class="text-gray-700 dark:text-gray-300">会社名:</label>
                             <select name="company_id" id="company_id" class="form-select" required>
-                                <option value="1">株式会社A</option>
-                                <option value="2">株式会社B</option>
-                                <option value="3">株式会社C</option>
-
+                                @foreach($companies as $company)
+                                <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                @endforeach
                             </select>
 
                             <label for="group_id" class="text-gray-700 dark:text-gray-300">所属部門:</label>
                             <select name="group_id" id="group_id" class="form-select" required>
-                                <option value="1">開発</option>
-                                <option value="2">営業</option>
-                                <option value="3">製造</option>
-                                <option value="4">管理</option>
+                                @foreach($groups as $group)
+                                <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                @endforeach
                             </select>
 
                             <label for="post_id" class="text-gray-700 dark:text-gray-300">役職:</label>
                             <select name="post_id" id="post_id" class="form-select" required>
-                                <option value="1">一般社員</option>
-                                <option value="2">係長</option>
-                                <option value="3">課長</option>
-                                <option value="4">部長</option>
+                                @foreach($posts as $post)
+                                <option value="{{ $post->id }}">{{ $post->name }}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -80,15 +77,9 @@
                                 <!-- 他のスキルを追加 -->
 
                                 <select name="skills[]" class="form-select" required>
-                                    <option value="1">C</option>
-                                    <option value="2">C#</option>
-                                    <option value="3">C++</option>
-                                    <option value="4">Java</option>
-                                    <option value="5">JavaScript</option>
-                                    <option value="6">Ruby</option>
-                                    <option value="7">Python</option>
-                                    <option value="8">PHP</option>
-                                    <!-- 追加のオプションを記述 -->
+                                    @foreach($skills as $skill)
+                                    <option value="{{ $skill->id }}">{{ $skill->name }}</option>
+                                    @endforeach
                                 </select>
                                 <button type="button" onclick="addSkill()" class="add-button">Add+</button>
                             </div>
@@ -164,23 +155,9 @@
                         </fieldset> -->
 
                                 <select name="hobbies[]" class="form-select" required>
-                                    <option value="1">映画鑑賞</option>
-                                    <option value="2">音楽鑑賞</option>
-                                    <option value="3">キャンプ</option>
-                                    <option value="4">筋トレ</option>
-                                    <option value="5">ヨガ</option>
-                                    <option value="6">ランニング</option>
-                                    <option value="7">ゲーム</option>
-                                    <option value="8">旅行</option>
-                                    <option value="9">読書</option>
-                                    <option value="10">料理</option>
-                                    <option value="11">野球観戦</option>
-                                    <option value="12">釣り</option>
-                                    <option value="13">麻雀</option>
-                                    <option value="14">ゴルフ</option>
-                                    <option value="15">カメラ</option>
-
-                                    <!-- 追加のオプションを記述 -->
+                                    @foreach($hobbies as $hobby)
+                                    <option value="{{ $hobby->id }}">{{ $hobby->name }}</option>
+                                    @endforeach
                                 </select>
                                 <button type="button" onclick="addHobby()" class="add-button">Add+</button>
                             </div>
