@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QrController;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,6 @@ use App\Http\Controllers\QrController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::resource('tweet', QrController::class);
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,5 +29,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+ //ここから下に追加
+
+Route::get('/create', [QrController::class, 'create'])->name('create');
+
+Route::get('/home', [QrController::class, 'home'])->name('home');
+
+Route::post('/generate', [QrController::class, 'generate'])->name('generate');
 
 require __DIR__.'/auth.php';
