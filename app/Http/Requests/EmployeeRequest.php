@@ -22,6 +22,7 @@ class EmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'picture' => ['file', 'mimes:gif,png,jpg,webp', 'max:3072'],
             'company_id' => ['required'],
             'group_id' => ['required'],
             'post_id' => ['required'],

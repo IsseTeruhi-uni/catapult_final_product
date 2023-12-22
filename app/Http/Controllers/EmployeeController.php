@@ -28,12 +28,24 @@ class EmployeeController extends Controller
     {
         $user = User::find(Auth::user()->id);
 
-        if ($user && is_array($request->skills)) {
-            $user->skills()->sync($request->skills);
+        if ($user) {
+            if (is_array($request->skills)) {
+                $user->skills()->sync($request->skills);
+            }
+
+            if (is_array($request->hobbies)) {
+                $user->hobbies()->sync($request->hobbies);
+            }
         }
 
-        if ($user && is_array($request->hobbies)) {
-            $user->hobbies()->sync($request->hobbies);
+        $path = null;
+        if ($request->hasFile('picture')) {
+            $path = $request->file('picture')->store('profile-icons', 'public');
+        }
+
+        if ($path) {
+            $user->profile_photo_path = $path;
+            $user->save();
         }
 
         $user->update([
