@@ -23,6 +23,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
     Route::post('/employees/store', [EmployeeController::class, 'store'])->name('employees.store');
