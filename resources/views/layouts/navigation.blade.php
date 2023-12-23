@@ -13,23 +13,28 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __(' Dashboard ') }}
                     </x-nav-link>
                 </div>
+
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('employees.show',Auth::user()->id)" :active="request()->routeIs('employees.show')">
                         {{ __('MyProfile') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                @can('register')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="url('/admin/auth/login')" :active="request()->routeIs('admin.login')">
+                        管理画面
+                    </x-nav-link>
+                </div>
+                @endcan
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('employees.create')" :active="request()->routeIs('employees.create')">
-                        {{ __('EditProfile') }}
+                        {{ __(' 登録 ') }}
                     </x-nav-link>
                 </div>
             </div>
-
-            
-
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
