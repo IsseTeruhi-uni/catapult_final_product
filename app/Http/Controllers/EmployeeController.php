@@ -45,4 +45,16 @@ class EmployeeController extends Controller
 
         return redirect()->route('dashboard');
     }
+    public function show($id)
+    {
+        $user = User::find($id);
+        $company = $user->company;
+        $group = $user->group;
+        $post= $user->post;
+        $skills = $user->skills;
+        $hobbies = $user->hobbies;
+        $followers = $user->followers;
+        return response()->view('employees.show', compact('user', 'company', 'group', 'post', 'skills', 'hobbies', 'followers'));
+    }
+
 }
