@@ -159,6 +159,7 @@ return [
         /*
          * Package Service Providers...
          */
+
         /*
          * Application Service Providers...
          */
@@ -169,7 +170,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
     ])->toArray(),
-
 
     /*
     |--------------------------------------------------------------------------
