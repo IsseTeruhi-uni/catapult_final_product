@@ -11,7 +11,7 @@
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 text-gray-900 dark:text-gray-100">
               <div class="visible-print text-center">
-                {{ QrCode::size(100)->generate(url()->current()) }}
+                {{QrCode::size(100)->generate('http://localhost/home')}}
                 <p>スキャンして元のページに戻ります</p>
               </div>
             </div>

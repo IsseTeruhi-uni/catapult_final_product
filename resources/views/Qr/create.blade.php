@@ -7,15 +7,15 @@
         </h2>
     </x-slot>
 
+
     <div class="container">
         @if (!$user->qr_code)
             <!-- QRコード生成ボタン -->
             <form action="{{ route('generate') }}" method="post">
                 @csrf
-                <x-secondary-button type="submit" class="ml-3">
+                <x-secondary-button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   {{ __('QRコード生成') }}
                 </x-primary-button>
-                <button type="submit">QRコード生成</button>
             </form>
         @else
             <!-- 生成済みのQRコード表示 -->
