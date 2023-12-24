@@ -1,28 +1,25 @@
 <!-- resources/views/Qr/home.blade.php -->
+
 <x-app-layout>
-  <x-slot name="header">
-      <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-          {{ __('My_Qr') }}
-      </h2>
-  </x-slot>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('QR Code Generator') }}
+        </h2>
+    </x-slot>
 
-  <div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-          <div class="p-6 text-gray-900 dark:text-gray-100">
-              <div class="visible-print text-center">
-                {{ QrCode::size(100)->generate(url()->current()) }}
-                <p>スキャンして元のページに戻ります</p>
-              </div>
-            </div>
-          </div>
-      </div>
+    <div class="container">
+        @if (!$user->qr_code)
+            <!-- QRコード生成ボタン -->
+            <form action="{{ route('generate') }}" method="post">
+                @csrf
+                <x-secondary-button type="submit" class="ml-3">
+                  {{ __('QRコード生成') }}
+                </x-primary-button>
+                <button type="submit">QRコード生成</button>
+            </form>
+        @else
+            <!-- 生成済みのQRコード表示 -->
+            <img src="{{ asset($user->qr_code) }}" alt="QR Code">
+        @endif
     </div>
-  </div>
-    
-    
-
-    
-
-    
 </x-app-layout>

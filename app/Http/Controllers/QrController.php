@@ -11,22 +11,20 @@ class QrController extends Controller
 {
     public function home()
     {
-        $user = auth()->user();
-        return view('Qr.home', compact('user'));
+        $qrs = [];
+        return view('Qr.home', compact('qrs'));
     }
     
 
     public function create()
     {
-        $qrs = [];
-        return view('Qr.create',compact('qrs'));
+        $user = auth()->user();
+        return view('Qr.create',compact('user'));
     }
 
     public function generate()
     {
         $user = auth()->user();
-
-        
         return redirect()->route('home');
     }
     
