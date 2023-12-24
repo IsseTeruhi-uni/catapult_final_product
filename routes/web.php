@@ -37,9 +37,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-require __DIR__ . '/auth.php';
-=======
- //ここから下に追加
 
 Route::get('/create', [QrController::class, 'create'])->name('create');
 
