@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QrController;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/employees/store', [EmployeeController::class, 'store'])->name('employees.store');
+    Route::get('/search/input', [SearchController::class, 'create'])->name('search.input');
+    Route::get('/search/result', [SearchController::class, 'index'])->name('search.result');
     Route::resource('employees', EmployeeController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

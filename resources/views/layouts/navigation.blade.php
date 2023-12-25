@@ -16,12 +16,23 @@
                         {{ __(' Dashboard ') }}
                     </x-nav-link>
                 </div>
-
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                        {{ __(' Home ') }}
+                    </x-nav-link>
+                </div>
+                
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('search.input')" :active="request()->routeIs('search.input')">
+                        {{ __('Search') }}
+                    </x-nav-link>
+                </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('employees.show',Auth::user()->id)" :active="request()->routeIs('employees.show')">
                         {{ __('MyProfile') }}
                     </x-nav-link>
                 </div>
+
                 @can('register')
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="url('/admin/auth/login')" :active="request()->routeIs('admin.login')">
