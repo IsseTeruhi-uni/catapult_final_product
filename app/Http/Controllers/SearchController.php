@@ -3,42 +3,46 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 
 class SearchController extends Controller
 {
     /**
+     * 会社名での絞り込みに苦戦中
      * Display a listing of the resource.
+     * else if ($category =='company'){
+     *      $users =User ::whereHas('company', function($query) use ($keyword){
+     *           $query->where('name', 'like', '%'.$keyword.'%');
+     *      })->get();
+     *   }
      */
     public function index(Request $request)
     {
         $category = $request->category;
         $keyword = $request->keyword;
+        $my_company = Auth::user()->company;
         if ($category == 'name'){
-            $users =User ::where($category, 'like', '%'.$keyword.'%')->get();
+            $users=User::where('company_id', $my_company->id)->where('name', 'like', '%'.$keyword.'%')->get();
         }
         else if ($category =='group'){
-            $users =User ::whereHas('group', function($query) use ($keyword){
-                $query->where('name', 'like', '%'.$keyword.'%');
-            })->get();
-        }
-        else if ($category =='company'){
-            $users =User ::whereHas('company', function($query) use ($keyword){
+            $users =User ::where('company_id', $my_company->id)->whereHas('group', function($query) use ($keyword){
                 $query->where('name', 'like', '%'.$keyword.'%');
             })->get();
         }
         else if ($category =='post'){
-            $users =User ::whereHas('post', function($query) use ($keyword){
+            $users =User ::where('company_id', $my_company->id)->whereHas('post', function($query) use ($keyword){
                 $query->where('name', 'like', '%'.$keyword.'%');
             })->get();
         }
         else if ($category =='skill'){
-            $users =User ::whereHas('skills', function($query) use ($keyword){
+            $users =User ::where('company_id', $my_company->id)->whereHas('skills', function($query) use ($keyword){
                 $query->where('name', 'like', '%'.$keyword.'%');
             })->get();
         }
         else if ($category =='hobby'){
-            $users =User ::whereHas('hobbies', function($query) use ($keyword){
+            $users =User ::where('company_id', $my_company->id)->whereHas('hobbies', function($query) use ($keyword){
                 $query->where('name', 'like', '%'.$keyword.'%');
             })->get();
         }
