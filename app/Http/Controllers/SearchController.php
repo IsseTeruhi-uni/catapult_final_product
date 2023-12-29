@@ -59,7 +59,7 @@ class SearchController extends Controller
             $followers=$user->followers;
             return response()->view('employees.show', compact('user','company','group','post','skills','hobbies','followers'));
         }
-        return response()->view('search.result', compact('users'));
+        return response()->view('employees.index', compact('users'));
     }
 
     /**
