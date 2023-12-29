@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
+    public function index()
+    {
+        $users = User::all();
+        return response()->view('employees.index', compact('users'));
+    }
     public function create()
     {
         $companies = Company::all();
