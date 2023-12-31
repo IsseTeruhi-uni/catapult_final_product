@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,8 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
+    Route::post('user/{user}/follow', [FollowController::class, 'store'])->name('follow');
+    Route::post('user/{user}/unfollow', [FollowController::class, 'destroy'])->name('unfollow');
     Route::post('/employees/store', [EmployeeController::class, 'store'])->name('employees.store');
     Route::resource('employees', EmployeeController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
