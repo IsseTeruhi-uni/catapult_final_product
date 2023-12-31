@@ -22,4 +22,8 @@
             <img src="{{ asset($user->qr_code) }}" alt="QR Code">
         @endif
     </div>
+    <div id="app" class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+        <scan-component/>
+    </div>
+    
 </x-app-layout>
