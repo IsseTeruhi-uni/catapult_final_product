@@ -38,7 +38,6 @@ class FollowController extends Controller
      */
     public function show(string $id)
     {
-        //
     }
 
     /**

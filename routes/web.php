@@ -3,7 +3,11 @@
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QrController;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::post('user/{user}/follow', [FollowController::class, 'store'])->name('follow');
     Route::post('user/{user}/unfollow', [FollowController::class, 'destroy'])->name('unfollow');
     Route::post('/employees/store', [EmployeeController::class, 'store'])->name('employees.store');
+    Route::get('/search/input', [SearchController::class, 'create'])->name('search.input');
+    Route::get('/search/result', [SearchController::class, 'index'])->name('search.result');
     Route::resource('employees', EmployeeController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -37,4 +43,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
 });
 
-require __DIR__ . '/auth.php';
+
+
+Route::get('/create', [QrController::class, 'create'])->name('create');
+
+Route::get('/home', [QrController::class, 'home'])->name('home');
+
+Route::post('/generate', [QrController::class, 'generate'])->name('generate');
+
+require __DIR__.'/auth.php';
+

@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
 {
+    public function index()
+    {
+        $users = User::all();
+        return response()->view('employees.index', compact('users'));
+    }
     public function create()
     {
         $companies = Company::all();
@@ -62,11 +67,13 @@ class EmployeeController extends Controller
         $user = User::find($id);
         $company = $user->company;
         $group = $user->group;
-        $post= $user->post;
+        $post = $user->post;
         $skills = $user->skills;
         $hobbies = $user->hobbies;
+        // ターゲットユーザのフォロワー一覧
         $followers = $user->followers;
-        return response()->view('employees.show', compact('user', 'company', 'group', 'post', 'skills', 'hobbies', 'followers'));
+        // ターゲットユーザのフォローしている人一覧
+        $followings  = $user->followings;
+        return response()->view('employees.show', compact('user', 'company', 'group', 'post', 'skills', 'hobbies', 'followers', 'followings'));
     }
-
 }

@@ -27,7 +27,7 @@ class User extends Authenticatable
         'post_id',
         'description',
         'profile_photo_path',
-
+        'qr_code',
     ];
 
     /**
@@ -49,6 +49,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
 
     public function skills()
     {
