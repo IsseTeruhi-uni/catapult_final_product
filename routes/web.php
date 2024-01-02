@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,8 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
+    Route::post('user/{user}/follow', [FollowController::class, 'store'])->name('follow');
+    Route::post('user/{user}/unfollow', [FollowController::class, 'destroy'])->name('unfollow');
     Route::post('/employees/store', [EmployeeController::class, 'store'])->name('employees.store');
     Route::get('/search/input', [SearchController::class, 'create'])->name('search.input');
     Route::get('/search/result', [SearchController::class, 'index'])->name('search.result');
