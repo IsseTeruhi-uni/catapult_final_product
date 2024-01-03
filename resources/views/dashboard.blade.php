@@ -56,9 +56,9 @@
             </div>
 
             <div class="custom-section">
-                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500" style="background-image: linear-gradient(135deg, rgba(255, 165, 0, 0.2), white);">
                     <div>
-                        <div class="flex items-center">
+                        <div class=" flex items-center">
                             <div class="h-13 w-13 bg-gray-50 dark:bg-red-800/20 flex items-center justify-center rounded-lg" style="width: 2.5rem; height: 2.5rem; border: 2px solid #000000;">
                                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24" color="#000000">
                                     <defs>
@@ -79,6 +79,32 @@
                             </div>
 
                             <h2 class="mt-0 ml-4 text-xl font-semibold text-gray-900 dark:text-white">会社からのお知らせ</h2>
+                        </div>
+                        <div style="height: 300px; overflow-y: auto; border-radius: 10px;">
+                            <table class="text-center w-full border-collapse" style="table-layout: fixed;">
+                                <thead>
+                                    <tr>
+                                        <th class="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark bg-white">Information</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($blogs as $blog)
+                                    <tr class="hover:bg-gray-lighter">
+                                        <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600" style="background-color: white; word-wrap: break-word;">
+                                            <div class="flex">
+                                                <!-- 🔽 編集 -->
+                                                <p class="text-gray-dark dark:text-gray-200 font-semibold">{{$blog->tweet}}</p>
+                                                <div style="margin-left: 1cm;">
+                                                    <p class="text-gray-dark dark:text-gray-200">{{ $blog->updated_at }}</p>
+                                                    <!-- 🔼 ここまで -->
+                                                </div>
+                                            </div>
+                                            <h3 class="text-gray-dark dark:text-gray-200" style="text-align: left;">{{$blog->description}}</h3>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

@@ -63,8 +63,8 @@ class BlogController extends AdminController
     {
         $form = new Form(new Blog());
 
-        $form->text('tweet', __('Tweet'));
-        $form->textarea('description', __('Description'));
+        $form->text('tweet', __('Tweet'))->rules('required|max:191');
+        $form->textarea('description', __('Description'))->rules('required|max:400');
 
         return $form;
     }

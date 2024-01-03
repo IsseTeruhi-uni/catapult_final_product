@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +32,7 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [BlogController::class, 'index'])->name('dashboard');
     Route::get('/follow/followers_show/{id}', [FollowController::class, 'followers_show'])->name('follow.show1');
     Route::get('/follow/followings_show/{id}', [FollowController::class, 'followings_show'])->name('follow.show2');
     Route::get('/tweet/timeline', [TweetController::class, 'timeline'])->name('tweet.timeline');
