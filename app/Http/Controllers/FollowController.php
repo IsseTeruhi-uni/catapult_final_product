@@ -36,8 +36,20 @@ class FollowController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function followers_show($id)
     {
+        $user = User::find($id);
+        $users = $user->followers;
+
+        return response()->view('follow.show1', compact('users'));
+    }
+
+    public function followings_show($id)
+    {
+        $user = User::find($id);
+        $users = $user->followings;
+
+        return response()->view('follow.show2', compact('users'));
     }
 
     /**

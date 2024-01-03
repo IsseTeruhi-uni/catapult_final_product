@@ -58,6 +58,13 @@
           </x-nav-link>
         </div>
 
+        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+          <x-nav-link :href="route('tweet.timeline')" :active="request()->routeIs('tweet.timeline')">
+            {{ __('Timeline') }}
+          </x-nav-link>
+        </div>
+
+
         @can('register')
         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
           <x-nav-link :href="url('/admin/auth/login')" :active="request()->routeIs('admin.login')">

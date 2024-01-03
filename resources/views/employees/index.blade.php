@@ -38,9 +38,9 @@
                       <!-- unfollow ボタン -->
                       <form action="{{ route('unfollow', $user) }}" method="POST">
                         @csrf
-                        <x-primary-button title="フォローをやめる">
+                        <x-primary-button title="フォローをやめる" class="bg-white">
                           <!-- ここにSVGアイコンとフォロワー数を表示 -->
-                          <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24" color="#FFFFF">
+                          <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24" color="#808080">
                             <defs>
                               <style>
                                 .cls-6374f8d9b67f094e4896c61d-1 {
@@ -56,16 +56,16 @@
                             <line class="cls-6374f8d9b67f094e4896c61d-1" x1="14.39" y1="14.39" x2="19.16" y2="19.16"></line>
                             <line class="cls-6374f8d9b67f094e4896c61d-1" x1="19.16" y1="14.39" x2="14.39" y2="19.16"></line>
                           </svg>
-                          {{ $user->followers()->count() }}
+                          <span style="color: grey;">{{ $user->followers()->count() }}</span>
                         </x-primary-button>
                       </form>
                       @else
                       <!-- follow ボタン -->
                       <form action="{{ route('follow', $user) }}" method="POST">
                         @csrf
-                        <x-primary-button title="フォローする">
+                        <x-primary-button title="フォローする" class="bg-white">
                           <!-- ここにSVGアイコンとフォロワー数を表示 -->
-                          <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24" color="#FFFFF">
+                          <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24" color="#808080">
                             <defs>
                               <style>
                                 .cls-6374f8d9b67f094e4896c60d-1 {
@@ -81,7 +81,7 @@
                             <line class="cls-6374f8d9b67f094e4896c60d-1" x1="13.91" y1="16.77" x2="19.64" y2="16.77"></line>
                             <line class="cls-6374f8d9b67f094e4896c60d-1" x1="16.77" y1="13.91" x2="16.77" y2="19.64"></line>
                           </svg>
-                          {{ $user->followers()->count() }}
+                          <span style="color: grey;">{{ $user->followers()->count() }}</span>
                         </x-primary-button>
                       </form>
                       @endif
