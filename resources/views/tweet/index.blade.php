@@ -90,7 +90,7 @@
                             @endif
                             @if ($item instanceof \App\Models\Blog)
                             <tr class="hover:bg-gray-lighter">
-                                <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600" style="background-color: rgba(255, 255, 0, 0.2);">
+                                <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600" style="background-image: linear-gradient(to left, rgba(255, 255, 0, 0.2), rgba(255, 255, 0, 0.2) 100%, white 100%)">
                                     <div class="flex">
                                         <!-- 🔽 編集 -->
                                         <p class="text-gray-dark dark:text-gray-200 font-semibold">{{$item->tweet}}</p>

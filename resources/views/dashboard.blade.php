@@ -111,7 +111,7 @@
             </div>
 
             <div class="custom-section">
-                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500" style="background-image: linear-gradient(135deg, rgba(255, 165, 0, 0.2), white);">
                     <div>
                         <div class="flex items-center">
                             <div class="h-13 w-13 bg-gray-50 dark:bg-red-800/20 flex items-center justify-center rounded-lg" style="width: 2.5rem; height: 2.5rem; border: 2px solid #000000;">
@@ -123,8 +123,43 @@
                                     </g>
                                 </svg>
                             </div>
+                            <h2 class="mt-0 ml-4 text-xl font-semibold text-gray-900 dark:text-white">アクティビティ</h2>
+                        </div>
+                        <div style="height: 300px; overflow-y: auto; border-radius: 10px;">
+                            <table class="text-center w-full border-collapse" style="table-layout: fixed;">
+                                <thead>
+                                    <tr>
+                                        <th class="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark bg-white">activity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($items as $item)
+                                    @if ($item->user_id == auth()->user()->id)
+                                    <tr class="hover:bg-gray-lighter">
+                                        <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600" style="background-color: white; word-wrap: break-word;">
+                                            <div class="flex">
 
-                            <h2 class="mt-0 ml-4 text-xl font-semibold text-gray-900 dark:text-white">今月のアクティビティ</h2>
+                                                <p class="text-gray-dark dark:text-gray-200">{{ $item->updated_at }}</p>
+
+                                            </div>
+                                            <h3 class="text-gray-dark dark:text-gray-200" style="text-align: left;"><a href="{{ route('employees.show', $item->following_id) }}"><span class="font-semibold">{{ $item->following->name }}</span></a>さんをフォローしました。</h3>
+                                        </td>
+                                    </tr>
+                                    @else
+                                    <tr class="hover:bg-gray-lighter">
+                                        <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600" style="background-color: white; word-wrap: break-word;">
+                                            <div class="flex">
+
+                                                <p class="text-gray-dark dark:text-gray-200">{{ $item->updated_at }}</p>
+
+                                            </div>
+                                            <h3 class="text-gray-dark dark:text-gray-200" style="text-align: left;"><a href="{{ route('employees.show', $item->user_id) }}"><span class="font-semibold">{{$item->user->name}}</span></a>さんにフォローされました。</h3>
+                                        </td>
+                                    </tr>
+                                    @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

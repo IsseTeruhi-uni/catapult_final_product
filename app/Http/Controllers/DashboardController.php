@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Follow;
 use Illuminate\Http\Request;
-use Validator;
-use Auth;
 
-class BlogController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,13 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::getAllOrderByUpdated_at();
-        return view('dashboard', compact('blogs'));
+
+        $userId = auth()->user()->id; // ログインしているユーザーのIDを取得
+
+        // モデルを使ってメソッドを呼び出す
+        $items = Follow::getAllOrderByUpdated($userId);
+
+        return view('dashboard', compact('blogs', 'items'));
     }
 
     /**
@@ -31,25 +36,7 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        // バリデーション
-        $validator = Validator::make($request->all(), [
-            'tweet' => 'required | max:191',
-            'description' => 'required',
-        ]);
-        // バリデーション:エラー
-        if ($validator->fails()) {
-            return redirect()
-                ->route('tweet.timeline')
-                ->withInput()
-                ->withErrors($validator);
-        }
-
-        // 🔽 編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
-        $data = $request->merge(['user_id' => Auth::user()->id])->all();
-        $result = Blog::create($data);
-
-        // tweet.index」にリクエスト送信（一覧ページに移動）
-        return redirect()->route('tweet.timeline');
+        //
     }
 
     /**
