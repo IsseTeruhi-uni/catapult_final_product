@@ -10,17 +10,17 @@
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800">
           <div class="mb-6">
-            <div class="flex items-center">
+            <div class="flex items-center mb-4">
               <div class="mr-3">
                 <img id="preview3" src="{{ isset($user->profile_photo_path) ? asset('storage/' . $user->profile_photo_path) : asset('images/user_icon.png') }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
               </div>
               <!--追加-->
-              <div style="margin-left: 1cm;">
-                <div class="flex flex-col">
-                  <a href="{{ route('follow.show1', $user->id) }}" class="mr-3">
+              <a href="{{ route('follow.show1', $user->id) }}" class="mr-3">
+                <div style="margin-left: 1cm;">
+                  <div class="flex flex-col">
                     <p class="mb-2 uppercase font-bold text-lg text-gray-800 dark:text-gray-200">{{$followers->count()}} フォロワー</p>
+                  </div>
                 </div>
-              </div>
               </a>
               <a href="{{ route('follow.show2', $user->id) }}" class="mr-3">
                 <div style="margin-left: 1cm;">
