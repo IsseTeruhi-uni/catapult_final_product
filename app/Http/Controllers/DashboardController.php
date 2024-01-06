@@ -2,18 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Blog;
+use App\Models\Follow;
 use Illuminate\Http\Request;
-use Auth;
 
-class FollowController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $blogs = Blog::getAllOrderByUpdated_at();
+
+        $userId = auth()->user()->id; // ログインしているユーザーのIDを取得
+
+        // モデルを使ってメソッドを呼び出す
+        $items = Follow::getAllOrderByUpdated($userId);
+
+        return view('dashboard', compact('blogs', 'items'));
     }
 
     /**
@@ -27,29 +34,17 @@ class FollowController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(User $user)
+    public function store(Request $request)
     {
-        Auth::user()->followings()->attach($user->id);
-        return redirect()->back();
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function followers_show($id)
+    public function show(string $id)
     {
-        $user = User::find($id);
-        $users = $user->followers;
-
-        return response()->view('follow.show1', compact('users'));
-    }
-
-    public function followings_show($id)
-    {
-        $user = User::find($id);
-        $users = $user->followings;
-
-        return response()->view('follow.show2', compact('users'));
+        //
     }
 
     /**
@@ -71,9 +66,8 @@ class FollowController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
-        Auth::user()->followings()->detach($user->id);
-        return redirect()->back();
+        //
     }
 }
