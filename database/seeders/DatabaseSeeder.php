@@ -21,9 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CompanyTableSeeder::class);
         $this->call(GroupTableSeeder::class);
         $this->call(HobbyTableSeeder::class);
-        $this->call(MasterDatabaseSeeder::class);
         $this->call(PostTableSeeder::class);
         $this->call(SkillTableSeeder::class);
-        
+        $this->call(MasterDatabaseSeeder::class);   
     }
 }
