@@ -4,6 +4,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\MeetingAttendanceController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +34,16 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
+
+Route::prefix('meeting_attendance')->middleware(['auth', 'is_invited_user'])->group(function () {
+
+    Route::get('{meeting}/edit', [MeetingAttendanceController::class, 'create'])->name('meeting_attendance.edit');
+    Route::put('update/{meeting}', [MeetingAttendanceController::class, 'update'])->name('meeting_attendance.update');
+});
+
+
 Route::middleware('auth')->group(function () {
+    Route::post('/meeting/store', [MeetingController::class, 'store'])->name('meeting.store');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/follow/followers_show/{id}', [FollowController::class, 'followers_show'])->name('follow.show1');
     Route::get('/follow/followings_show/{id}', [FollowController::class, 'followings_show'])->name('follow.show2');
@@ -48,6 +59,12 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
+});
+
+Route::prefix('meeting')->middleware('auth')->group(function () {
+
+    Route::get('create', [MeetingController::class, 'create'])->name('meeting.create');
+    Route::post('store', [MeetingController::class, 'store'])->name('meeting.store');
 });
 
 
