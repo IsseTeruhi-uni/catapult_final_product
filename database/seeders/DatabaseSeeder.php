@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GroupTableSeeder::class);
         $this->call(HobbyTableSeeder::class);
         $this->call(PostTableSeeder::class);
-        $this->call(SkillSeeder::class);
+        $this->call(SkillTableSeeder::class);
         $this->call(MasterDatabaseSeeder::class);   
     }
 }
