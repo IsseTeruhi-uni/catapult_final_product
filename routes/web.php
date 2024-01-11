@@ -63,6 +63,7 @@ Route::prefix('meeting_attendance')->middleware(['auth', 'is_invited_user'])->gr
 
     Route::get('{meeting}/edit', [MeetingAttendanceController::class, 'create'])->name('meeting_attendance.edit');
     Route::put('update/{meeting}', [MeetingAttendanceController::class, 'update'])->name('meeting_attendance.update');
+    Route::get('{meeting}/index', [MeetingAttendanceController::class, 'index'])->name('meeting_attendance.index');
 });
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Follow;
+use App\Models\Meeting;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -20,7 +21,9 @@ class DashboardController extends Controller
         // モデルを使ってメソッドを呼び出す
         $items = Follow::getAllOrderByUpdated($userId);
 
-        return view('dashboard', compact('blogs', 'items'));
+        $meetings = Meeting::getAllOrderByUpdated_at();
+
+        return view('dashboard', compact('blogs', 'items', 'meetings'));
     }
 
     /**

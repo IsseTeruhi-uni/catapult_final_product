@@ -17,7 +17,7 @@ class MeetingController extends Controller
     public function index()
     {
         $meetings = Meeting::getAllOrderByUpdated_at();
-        $attendances = MeetingAttendance::all();
+        $attendances = MeetingAttendance::where('user_id', auth()->id())->get();
 
         return response()->view('meeting.index', compact('meetings', 'attendances'));
     }

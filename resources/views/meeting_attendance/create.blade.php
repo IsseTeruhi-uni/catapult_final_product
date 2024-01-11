@@ -1,43 +1,54 @@
-<!DOCTYPE html>
-<html>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight dark:text-gray-200">
+            {{ __('Meeting Attendance') }}
+        </h2>
+    </x-slot>
 
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:w-8/12 md:w-1/2 lg:w-5/12">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800">
+                    <div class="p-4">
+                        <form method="POST" action="{{ route('meeting_attendance.update', $meeting->id) }}">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-4">
+                                <p>「<span class="text-gray-dark dark:text-gray-200 font-semibold">{{ $meeting->name }}</span>」への出欠はどうしますか？</p>
+                            </div>
+                            <div class="mb-4">
+                                @foreach($attendance_types as $id => $type)
+                                <label>
+                                    <input type="radio" name="type_id" value="{{ $id }}" required> {{ $type }}
+                                </label>
+                                @endforeach
+                            </div>
+                            <span class="badge bg-primary mb-4">現在の出欠状況</span>
+                            <div class="p-3 bg-light">
+                                @foreach($grouped_attendances as $id => $attendances)
 
-<body>
-    <div class="p-4">
-        <div class="mb-3">
-            <form action="{{ route('meeting_attendance.update', $meeting->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <p>「<strong>{{ $meeting->name }}</strong>」への出欠はどうしますか？</p>
-                <div class="mt-3 mb-4">
-                    @foreach($attendance_types as $id => $type)
-                    <label>
-                        <input type="radio" name="type_id" value="{{ $id }}" onclick="submitForm()"> {{ $type }}
-                    </label>
-                    @endforeach
-                </div>
-                <span class="badge bg-primary mb-2">現在の出欠状況</span>
-                <div class="p-3 bg-light">
-                    @foreach($grouped_attendances as $id => $attendances)
-                    <div>
-                        {{ $attendance_types[$id] }}: {{ $attendances->count() }}人
+                                <div>
+                                    {{ $attendance_types[$id] }}: {{ $attendances->count() }}人
+                                </div>
+
+                                @endforeach
+                            </div>
+                            <div class="flex items-center mt-4">
+                                <x-primary-button class="ml-3">
+                                    {{ __('送信する') }}
+                                </x-primary-button>
+                            </div>
+                            <div class="flex items-center justify-end mt-4">
+                                <a href="{{ url()->previous() }}">
+                                    <x-secondary-button class="ml-3">
+                                        {{ __('Back') }}
+                                        </x-primary-button>
+                                </a>
+                            </div>
+                        </form>
                     </div>
-                    @endforeach
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>
-    <script>
-        function submitForm() {
-            if (confirm('送信します。よろしいですか？')) {
-                document.forms[0].submit();
-            }
-        }
-    </script>
-</body>
-
-</html>
+</x-app-layout>

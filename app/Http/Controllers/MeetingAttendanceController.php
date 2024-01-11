@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class MeetingAttendanceController extends Controller
 {
+
+    public function index(array $user_ids)
+    {
+        return view('meeting_attendance.index', compact('user_ids'));
+    }
+
     public function create(Meeting $meeting)
     {
         $grouped_attendances = $meeting->attendances->groupBy('type_id');
