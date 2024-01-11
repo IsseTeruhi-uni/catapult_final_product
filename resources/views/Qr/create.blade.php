@@ -1,5 +1,4 @@
 <!-- resources/views/Qr/home.blade.php -->
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -15,11 +14,14 @@
                 @csrf
                 <x-secondary-button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                   {{ __('QRコード生成') }}
-                </x-primary-button>
+                </x-secondary-button>
             </form>
         @else
             <!-- 生成済みのQRコード表示 -->
             <img src="{{ asset($user->qr_code) }}" alt="QR Code">
         @endif
+    </div>
+    <div id="app" class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+        <scan-component/>
     </div>
 </x-app-layout>
