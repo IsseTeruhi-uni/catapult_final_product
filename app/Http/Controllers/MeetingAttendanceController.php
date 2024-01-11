@@ -37,6 +37,6 @@ class MeetingAttendanceController extends Controller
             $result = $attendance->save();
         }
 
-        return ['result' => $result];
+        return redirect()->route('meeting.index');
     }
 }

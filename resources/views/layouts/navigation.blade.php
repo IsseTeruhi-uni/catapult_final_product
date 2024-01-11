@@ -92,8 +92,8 @@
             <x-dropdown-link :href="route('meeting.create')">
               {{ __('Create') }}
             </x-dropdown-link>
-            <x-dropdown-link :href="route('profile.edit')">
-              {{ __('Profile') }}
+            <x-dropdown-link :href="route('meeting.index')">
+              {{ __('Index') }}
             </x-dropdown-link>
           </x-slot>
         </x-dropdown>

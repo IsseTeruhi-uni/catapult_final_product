@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Mail;
 
 class MeetingController extends Controller
 {
+    public function index()
+    {
+        $meetings = Meeting::getAllOrderByUpdated_at();
+        $attendances = MeetingAttendance::all();
+
+        return response()->view('meeting.index', compact('meetings', 'attendances'));
+    }
     public function create()
     {
         $user_id = auth()->id();
@@ -66,12 +73,16 @@ class MeetingController extends Controller
             DB::rollBack();
         }
 
-        return ['result' => $result];
+        return redirect()->route('dashboard');
     }
 
     private function sendMail(Meeting $meeting, array $user_ids)
     {
-        $users = User::whereIn('id', $user_ids)->get();
+        $flattened_user_ids = collect($user_ids)->flatten()->toArray(); // 二次元配列をフラットな一次元配列に変換
+
+        $users = User::whereIn('id', $flattened_user_ids)->get(); // ユーザー情報を取得
+
+        // メール送信の処理（例）
         Mail::cc($users)->send(new MeetingCreated($meeting));
     }
 }
