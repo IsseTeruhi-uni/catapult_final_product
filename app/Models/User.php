@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +22,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'company_id',
+        'group_id',
+        'post_id',
+        'description',
+        'profile_photo_path',
         'qr_code',
     ];
 
@@ -44,4 +50,44 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, 'skill_user', 'user_id', 'skill_id')->withTimeStamps();
+    }
+
+    public function hobbies()
+    {
+        return $this->belongsToMany(Hobby::class, 'hobby_user', 'user_id', 'hobby_id')->withTimeStamps();
+    }
+
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(self::class, "follows", "user_id", "following_id")->withTimestamps();
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(self::class, "follows", "following_id", "user_id")->withTimestamps();
+    }
+
+    public function userTweets()
+    {
+        return $this->hasMany(Tweet::class);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,13 +27,30 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        // $request->user()->fill($request->validated());
+        $request->user()->fill($request->safe()->only(['name', 'email']));
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
+        $path = null;
+        if ($request->hasFile('picture')) {
+            $path = $request->file('picture')->store('profile-icons', 'public');
+            $request->user()->profile_photo_path = $path;
+        }
+
         $request->user()->save();
+
+        /*$user = User::find(Auth::user()->id);
+
+        if ($user && is_array($request->skills)) {
+            $user->skills()->sync($request->skills);
+        }
+
+        if ($user && is_array($request->hobbies)) {
+            $user->hobbies()->sync($request->hobbies);
+        }*/
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
