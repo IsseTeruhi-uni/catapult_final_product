@@ -19,4 +19,6 @@ Route::group([
     $router->resource('posts', PostController::class);
     $router->resource('skills', SkillController::class);
     $router->resource('hobbies', HobbyController::class);
+    $router->resource('tweets', TweetController::class);
+    $router->resource('blogs', BlogController::class);
 });
