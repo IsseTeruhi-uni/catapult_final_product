@@ -10,9 +10,20 @@
         <div class="max-w-7xl mx-auto sm:w-10/12 md:w-8/10 lg:w-8/12">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white dark:bg-gray-800 border-b border-grey-200 dark:border-gray-800">
-                    <h2 class="font-semibold text-xl text-gray-800 leading-tight dark:text-gray-200">
-                        {{ __('招待されているイベント一覧') }}
-                    </h2>
+                    <div class="flex items-center ml-3">
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight dark:text-gray-200">
+                            {{ __('招待されているイベント一覧') }}
+                        </h2>
+                        @can('register')
+                        <div style="margin-left: 1cm;">
+                            <a href="{{ route('meeting.create') }}" class="mr-3">
+                                <x-secondary-button>
+                                    {{ __('create') }}
+                                </x-secondary-button>
+                            </a>
+                        </div>
+                        @endcan
+                    </div>
 
 
                     @foreach ($meetings as $meeting)
