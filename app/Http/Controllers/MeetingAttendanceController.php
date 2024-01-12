@@ -10,9 +10,12 @@ use Illuminate\Http\Request;
 class MeetingAttendanceController extends Controller
 {
 
-    public function index(array $user_ids)
+    public function index(Meeting $meeting, $type_id)
     {
-        return view('meeting_attendance.index', compact('user_ids'));
+        // ミーティングに関する全ての出欠情報を取得
+        $users = $meeting->attendances->where('type_id', $type_id)->pluck('user');
+
+        return view('meeting_attendance.index', compact('users'));
     }
 
     public function create(Meeting $meeting)
@@ -20,10 +23,19 @@ class MeetingAttendanceController extends Controller
         $grouped_attendances = $meeting->attendances->groupBy('type_id');
         $attendance_types = MeetingAttendanceType::pluck('name', 'id');
 
+        // 各参加タイプごとにユーザーIDを保存するための配列を作成
+        $user_ids_by_type = [];
+
+        foreach ($grouped_attendances as $id => $attendances) {
+            // 各参加タイプごとにユーザーIDを抽出
+            $user_ids_by_type[$id] = $attendances->pluck('user_id')->toArray();
+        }
+
         return view('meeting_attendance.create')->with([
             'meeting' => $meeting,
             'grouped_attendances' => $grouped_attendances,
-            'attendance_types' => $attendance_types
+            'attendance_types' => $attendance_types,
+            'user_ids_by_type' => $user_ids_by_type
         ]);
     }
 

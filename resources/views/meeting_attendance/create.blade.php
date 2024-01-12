@@ -26,11 +26,11 @@
                             <span class="badge bg-primary mb-4">現在の出欠状況</span>
                             <div class="p-3 bg-light">
                                 @foreach($grouped_attendances as $id => $attendances)
-
                                 <div>
-                                    {{ $attendance_types[$id] }}: {{ $attendances->count() }}人
+                                    <a href="{{ route('meeting_attendance.index', ['meeting' => $meeting->id, 'type_id' => $id]) }}">
+                                        {{ $attendance_types[$id] }}: {{ $attendances->count() }}人
+                                    </a>
                                 </div>
-
                                 @endforeach
                             </div>
                             <div class="flex items-center mt-4">

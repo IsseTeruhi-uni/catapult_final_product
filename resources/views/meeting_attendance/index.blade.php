@@ -16,7 +16,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($user_ids as $user)
+                            @foreach ($users as $user)
                             <tr class="hover:bg-gray-lighter">
                                 <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600">
                                     <div class="flex items-center justify-center">
@@ -56,7 +56,7 @@
                                                         <line class="cls-6374f8d9b67f094e4896c61d-1" x1="14.39" y1="14.39" x2="19.16" y2="19.16"></line>
                                                         <line class="cls-6374f8d9b67f094e4896c61d-1" x1="19.16" y1="14.39" x2="14.39" y2="19.16"></line>
                                                     </svg>
-                                                    <span style="color: grey;">{{ $user->followers()->count() }}</span>
+
                                                 </x-primary-button>
                                             </form>
                                             @else
@@ -81,7 +81,7 @@
                                                         <line class="cls-6374f8d9b67f094e4896c60d-1" x1="13.91" y1="16.77" x2="19.64" y2="16.77"></line>
                                                         <line class="cls-6374f8d9b67f094e4896c60d-1" x1="16.77" y1="13.91" x2="16.77" y2="19.64"></line>
                                                     </svg>
-                                                    <span style="color: grey;">{{ $user->followers()->count() }}</span>
+
                                                 </x-primary-button>
                                             </form>
                                             @endif
