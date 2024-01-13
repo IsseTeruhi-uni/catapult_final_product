@@ -9,7 +9,9 @@ use App\Models\Hobby;
 use App\Models\Post;
 use App\Models\Skill;
 use App\Models\User;
-use Encore\Admin\Auth\Database\Role;
+use App\Models\UserHistory;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
@@ -63,6 +65,8 @@ class EmployeeController extends Controller
 
         if ($request->post_id == 4 && User::where('group_id', $request->group_id)->where('post_id', 4)->count() == 1) {
             $adminRole = Role::where('name', 'admin')->first();
+            $registerPermission = Permission::where('name', 'register')->first();
+            $adminRole->givePermissionTo($registerPermission);
             $user->assignRole($adminRole);
         }
 
@@ -71,6 +75,29 @@ class EmployeeController extends Controller
     public function show($id)
     {
         $user = User::find($id);
+
+        $viewerId = Auth::user()->id;
+
+        $userHistory = UserHistory::where('user_id', $viewerId)
+            ->where('viewed_user_id', $user->id)
+            ->first();
+
+        if ($userHistory) {
+            // 既に閲覧履歴が存在する場合は更新
+            $userHistory->update([
+                'viewed_at' => now(), // 更新したいフィールドや値に合わせて変更
+            ]);
+        } else {
+            // 閲覧履歴が存在しない場合は新しいインスタンスを作成
+            UserHistory::create([
+                'user_id' => $viewerId,
+                'viewed_user_id' => $user->id,
+                'viewed_at' => now(), // 初回の閲覧時刻
+            ]);
+        }
+
+
+
         $company = $user->company;
         $group = $user->group;
         $post = $user->post;

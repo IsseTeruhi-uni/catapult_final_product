@@ -9,6 +9,7 @@
     <div class="max-w-7xl mx-auto sm:w-10/12 md:w-8/10 lg:w-8/12">
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white dark:bg-gray-800 border-b border-grey-200 dark:border-gray-800">
+          @if($users->count()>0)
           <table class="text-center w-full border-collapse">
             <thead>
               <tr>
@@ -94,7 +95,16 @@
               @endforeach
             </tbody>
           </table>
-
+          @else
+          <p class="text-gray-700 dark:text-gray-300">ユーザが見つかりませんでした。</p>
+          <div class="flex items-center justify-end mt-4">
+            <a href="{{ url()->previous() }}">
+              <x-secondary-button class="ml-3">
+                {{ __('Back') }}
+                </x-primary-button>
+            </a>
+          </div>
+          @endif
         </div>
       </div>
     </div>

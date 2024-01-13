@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Models\Follow;
 use App\Models\Meeting;
+use App\Models\UserHistory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -23,7 +25,14 @@ class DashboardController extends Controller
 
         $meetings = Meeting::getAllOrderByUpdated_at();
 
-        return view('dashboard', compact('blogs', 'items', 'meetings'));
+        $recentlyViewedUsers = UserHistory::where('user_id', Auth::user()->id)
+            ->where('viewed_user_id', '!=', Auth::user()->id)
+            ->orderByDesc('viewed_at')
+            ->take(5)
+            ->with('viewedUser') // User モデルとのリレーションを事前に読み込む
+            ->get();
+
+        return view('dashboard', compact('blogs', 'items', 'meetings', 'recentlyViewedUsers'));
     }
 
     /**
