@@ -39,7 +39,7 @@ class ProfileController extends Controller
         $path = null;
         if ($request->hasFile('picture')) {
             $file=$request->file('picture');
-            $upload = Cloudinary::upload ( $file->getRealPath(), [
+            $uploadpath = Cloudinary::upload ( $file->getRealPath(), [
                 // ここの設定は各々で数値をいじって下さい
                     "height" => 800,
                     "width" => 800,
@@ -47,11 +47,9 @@ class ProfileController extends Controller
                     "border" => "20px_solid_rgb:ffffff",
                     "quality" => "auto",
                     "fetch_format" => "auto",
-            ]);
-
-             $path =  $update->getSecurePath();
+            ])->getSecurePath();
              //$id = $update->getPublicId();
-             $request->user()->profile_photo_path = $path;
+             $request->user()->profile_photo_path = $uploadpath;
         }
 
         $request->user()->save();

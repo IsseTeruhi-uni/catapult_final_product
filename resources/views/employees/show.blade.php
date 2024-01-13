@@ -12,7 +12,7 @@
           <div class="mb-6">
             <div class="flex items-center mb-4">
               <div class="mr-3">
-                <img id="preview3" src="{{ isset($user->profile_photo_path) ? asset('storage/' . $user->profile_photo_path) :  'https://res.cloudinary.com/hanheyrpa/image/upload/f_auto,q_auto/lp7cl1lwezs5vgkgzrlt' }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
+                <img id="preview3" src="{{ isset($user->profile_photo_path) ?  $user->profile_photo_path :  'https://res.cloudinary.com/hanheyrpa/image/upload/f_auto,q_auto/lp7cl1lwezs5vgkgzrlt' }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
               </div>
               <!--追加-->
               <a href="{{ route('follow.show1', $user->id) }}" class="mr-3">
