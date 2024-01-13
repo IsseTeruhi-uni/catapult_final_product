@@ -20,33 +20,37 @@
                             <x-input-error class="mt-2" :messages="$errors->get('picture')" />
                         </div>
 
-                        <!-- 会社、所属部門、役職選択 -->
-                        <div class="mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <label for="company_id" class="text-gray-700 dark:text-gray-300">会社名:</label>
-                            <select name="company_id" id="company_id" class="form-select" required>
-                                @foreach($companies as $company)
-                                <option value="{{ $company->id }}">{{ $company->name }}</option>
-                                @endforeach
-                            </select>
-
-                            <label for="group_id" class="text-gray-700 dark:text-gray-300">所属部門:</label>
-                            <select name="group_id" id="group_id" class="form-select" required>
-                                @foreach($groups as $group)
-                                <option value="{{ $group->id }}">{{ $group->name }}</option>
-                                @endforeach
-                            </select>
-
-                            <label for="post_id" class="text-gray-700 dark:text-gray-300">役職:</label>
-                            <select name="post_id" id="post_id" class="form-select" required>
-                                @foreach($posts as $post)
-                                <option value="{{ $post->id }}">{{ $post->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <!-- スキル選択 -->
-                        <div id="skills-container">
+                        <div class="mb-4 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                            <!-- 会社、所属部門、役職選択 -->
                             <div class="mb-4">
+                                <label for="company_id" class="text-gray-700 dark:text-gray-300">会社名:</label>
+                                <select name="company_id" id="company_id" class="form-select" required>
+                                    @foreach($companies as $company)
+                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="group_id" class="text-gray-700 dark:text-gray-300">所属部門:</label>
+                                <select name="group_id" id="group_id" class="form-select" required>
+                                    @foreach($groups as $group)
+                                    <option value="{{ $group->id }}">{{ $group->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="post_id" class="text-gray-700 dark:text-gray-300">役職:</label>
+                                <select name="post_id" id="post_id" class="form-select" required>
+                                    @foreach($posts as $post)
+                                    <option value="{{ $post->id }}">{{ $post->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <!-- スキル選択 -->
+                            <div id="skills-container" class="mb-4 col-span-full">
                                 <label class="text-gray-700 dark:text-gray-300">スキル:</label>
                                 <select name="skills[]" class="form-select" required>
                                     @foreach($skills as $skill)
@@ -55,11 +59,9 @@
                                 </select>
                                 <button type="button" onclick="addSkill()" class="add-button">Add+</button>
                             </div>
-                        </div>
 
-                        <!-- 趣味選択 -->
-                        <div id="hobbies-container">
-                            <div class="mb-4">
+                            <!-- 趣味選択 -->
+                            <div id="hobbies-container" class="mb-4 col-span-full">
                                 <label class="text-gray-700 dark:text-gray-300">趣味:</label>
                                 <select name="hobbies[]" class="form-select" required>
                                     @foreach($hobbies as $hobby)
@@ -68,13 +70,15 @@
                                 </select>
                                 <button type="button" onclick="addHobby()" class="add-button">Add+</button>
                             </div>
+
+                            <!-- 自己紹介文 -->
+                            <div class="mb-4 col-span-full">
+                                <label for="description" class="text-gray-700 dark:text-gray-300">自己紹介文:</label>
+                                <textarea name="description" id="description" class="form-input h-40 resize-none" placeholder="自己紹介を入力してください" required></textarea>
+                            </div>
                         </div>
 
-                        <!-- 自己紹介文 -->
-                        <div class="mb-4">
-                            <label for="description" class="text-gray-700 dark:text-gray-300">自己紹介文:</label>
-                            <input type="text" name="description" id="description" class="form-input h-40" placeholder="自己紹介を入力してください" required>
-                        </div>
+
 
                         <!-- 登録ボタン -->
                         <div class="flex items-center justify-center mt-4">
