@@ -64,6 +64,11 @@
           </x-nav-link>
         </div>
 
+        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+          <x-nav-link :href="route('meeting.index')" :active="request()->routeIs('meeting.index')">
+            {{ __('Event') }}
+          </x-nav-link>
+        </div>
 
         @can('register')
         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -73,6 +78,7 @@
         </div>
         @endcan
       </div>
+
       <!-- Settings Dropdown -->
       <div class="hidden sm:flex sm:items-center sm:ms-6">
         <div class="mr-3">

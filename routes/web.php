@@ -4,6 +4,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FollowController;
+use App\Http\Controllers\MeetingAttendanceController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +52,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
 });
 
+Route::prefix('meeting')->middleware('auth')->group(function () {
+
+    Route::get('create', [MeetingController::class, 'create'])->name('meeting.create');
+    Route::post('store', [MeetingController::class, 'store'])->name('meeting.store');
+    Route::get('index', [MeetingController::class, 'index'])->name('meeting.index');
+});
+
+Route::prefix('meeting_attendance')->middleware(['auth', 'is_invited_user'])->group(function () {
+
+    Route::get('{meeting}/edit', [MeetingAttendanceController::class, 'create'])->name('meeting_attendance.edit');
+    Route::put('update/{meeting}', [MeetingAttendanceController::class, 'update'])->name('meeting_attendance.update');
+    Route::get('{meeting}/{type_id}/index', [MeetingAttendanceController::class, 'index'])->name('meeting_attendance.index');
+});
 
 
 Route::get('/create', [QrController::class, 'create'])->name('create');

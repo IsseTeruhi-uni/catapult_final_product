@@ -46,17 +46,42 @@
                                 </svg>
                             </div>
 
-                            <h2 class="mt-0 ml-4 text-xl font-semibold text-gray-900 dark:text-white">今週のイベント</h2>
+                            <h2 class="mt-0 ml-4 text-xl font-semibold text-gray-900 dark:text-white">イベント</h2>
                         </div>
-                        <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                            ここにイベント内容記載
-                        </p>
+                        <div style="height: 300px; overflow-y: auto; border-radius: 10px;">
+                            <table class="text-center w-full border-collapse" style="table-layout: fixed;">
+                                <thead>
+                                    <tr>
+                                        <th class="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark bg-white">Event</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($meetings as $meeting)
+                                    @php
+                                    $attendance = $meeting->attendances()->where('user_id', auth()->id())->first();
+                                    @endphp
+                                    @if ($attendance)
+                                    <tr class="hover:bg-gray-lighter">
+                                        <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600" style="background-color: white; word-wrap: break-word;">
+                                            <div class="flex">
+
+                                                <p class="text-gray-dark dark:text-gray-200">{{ $meeting->updated_at }}</p>
+
+                                            </div>
+                                            <h3 class="text-gray-dark dark:text-gray-200" style="text-align: left;"><a href="{{ route('meeting_attendance.edit', $meeting->id) }}">イベント<span class="font-semibold">{{ $meeting->name }}</span></a>に招待されました</h3>
+                                        </td>
+                                    </tr>
+                                    @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="custom-section">
-                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500" style="background-image: linear-gradient(135deg, rgba(255, 165, 0, 0.2), white);">
+                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
                     <div>
                         <div class=" flex items-center">
                             <div class="h-13 w-13 bg-gray-50 dark:bg-red-800/20 flex items-center justify-center rounded-lg" style="width: 2.5rem; height: 2.5rem; border: 2px solid #000000;">
@@ -111,7 +136,7 @@
             </div>
 
             <div class="custom-section">
-                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500" style="background-image: linear-gradient(135deg, rgba(255, 165, 0, 0.2), white);">
+                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
                     <div>
                         <div class="flex items-center">
                             <div class="h-13 w-13 bg-gray-50 dark:bg-red-800/20 flex items-center justify-center rounded-lg" style="width: 2.5rem; height: 2.5rem; border: 2px solid #000000;">
@@ -188,26 +213,6 @@
                             </div>
 
                             <h2 class="mt-0 ml-4 text-xl font-semibold text-gray-900 dark:text-white">人物関連図</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="custom-section">
-                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                    <div>
-                        <div class="flex items-center">
-                            <div class="h-13 w-13 bg-gray-50 dark:bg-red-800/20 flex items-center justify-center rounded-lg" style="width: 2.5rem; height: 2.5rem; border: 2px solid #000000;">
-                                <svg xmlns="http://www.w3.org/2000/svg" stroke-width="1.5" viewBox="0 0 22.91 22.91" width="24" height="24" color="#000000">
-                                    <g id="star-badge-award" transform="translate(-0.545 -0.545)">
-                                        <path id="Path_32" data-name="Path 32" d="M18.68,12a6.63,6.63,0,1,1-1.942-4.738A6.68,6.68,0,0,1,18.68,12Z" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10"></path>
-                                        <path id="Path_33" data-name="Path 33" d="M22.5,12c0,.9-1.1,1.64-1.32,2.46s.35,2.05-.08,2.79-1.77.85-2.38,1.47-.71,1.94-1.47,2.37-1.94-.14-2.79.09S12.89,22.5,12,22.5s-1.63-1.1-2.46-1.32-2,.35-2.79-.09-.85-1.76-1.47-2.37S3.34,18,2.9,17.25s.15-1.93-.08-2.79S1.5,12.9,1.5,12s1.1-1.64,1.32-2.46-.35-2,.08-2.79S4.66,5.9,5.28,5.28,6,3.34,6.75,2.9s1.93.15,2.79-.08S11.1,1.5,12,1.5s1.64,1.1,2.46,1.32,2-.35,2.79.08.85,1.76,1.47,2.38S20.66,6,21.1,6.75s-.15,1.93.08,2.79S22.5,11.1,22.5,12Z" fill="none" stroke="currentColor" stroke-linecap="square" stroke-miterlimit="10"></path>
-                                        <path id="Path_34" data-name="Path 34" d="M12,7.92l1.18,2.46,2.64.4L13.91,12.7l.45,2.71L12,14.13,9.64,15.41l.45-2.71L8.18,10.78l2.64-.4Z" fill="currentColor"></path>
-                                    </g>
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-0 ml-4 text-xl font-semibold text-gray-900 dark:text-white">何か追加であれば</h2>
                         </div>
                     </div>
                 </div>
