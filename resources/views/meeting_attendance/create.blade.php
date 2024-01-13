@@ -39,7 +39,7 @@
                                 </x-primary-button>
                             </div>
                             <div class="flex items-center justify-end mt-4">
-                                <a href="{{ url()->previous() }}">
+                                <a href="{{ route('meeting.index') }}">
                                     <x-secondary-button class="ml-3">
                                         {{ __('Back') }}
                                         </x-primary-button>
