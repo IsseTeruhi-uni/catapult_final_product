@@ -6,7 +6,7 @@ use Encore\Admin\Auth\Database\Role;
 use Encore\Admin\Auth\Database\Permission;
 use Encore\Admin\Auth\Database\Menu;
 
-class Admin_usersTablesSeeder extends Seeder
+class AdminTablesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
