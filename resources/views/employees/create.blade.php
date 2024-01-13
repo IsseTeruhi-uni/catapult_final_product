@@ -20,8 +20,7 @@
                             <x-input-error class="mt-2" :messages="$errors->get('picture')" />
                         </div>
 
-                        <div class="mb-4 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                            <!-- 会社、所属部門、役職選択 -->
+                        <div class="max-w-7xl mx-auto">
                             <div class="mb-4">
                                 <label for="company_id" class="text-gray-700 dark:text-gray-300">会社名:</label>
                                 <select name="company_id" id="company_id" class="form-select" required>
@@ -49,8 +48,7 @@
                                 </select>
                             </div>
 
-                            <!-- スキル選択 -->
-                            <div id="skills-container" class="mb-4 col-span-full">
+                            <div id="skills-container" class="mb-4">
                                 <label class="text-gray-700 dark:text-gray-300">スキル:</label>
                                 <select name="skills[]" class="form-select" required>
                                     @foreach($skills as $skill)
@@ -60,8 +58,7 @@
                                 <button type="button" onclick="addSkill()" class="add-button">Add+</button>
                             </div>
 
-                            <!-- 趣味選択 -->
-                            <div id="hobbies-container" class="mb-4 col-span-full">
+                            <div id="hobbies-container" class="mb-4">
                                 <label class="text-gray-700 dark:text-gray-300">趣味:</label>
                                 <select name="hobbies[]" class="form-select" required>
                                     @foreach($hobbies as $hobby)
@@ -71,12 +68,12 @@
                                 <button type="button" onclick="addHobby()" class="add-button">Add+</button>
                             </div>
 
-                            <!-- 自己紹介文 -->
-                            <div class="mb-4 col-span-full">
+                            <div class="mb-4">
                                 <label for="description" class="text-gray-700 dark:text-gray-300">自己紹介文:</label>
                                 <textarea name="description" id="description" class="form-input h-40 resize-none" placeholder="自己紹介を入力してください" required></textarea>
                             </div>
                         </div>
+
 
 
 
