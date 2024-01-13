@@ -5,7 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 
-use AdminTablesSeeder;
+use Database\Seeders\AdminTablesSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
