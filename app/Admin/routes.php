@@ -21,4 +21,5 @@ Route::group([
     $router->resource('hobbies', HobbyController::class);
     $router->resource('tweets', TweetController::class);
     $router->resource('blogs', BlogController::class);
+    $router->resource('meetings', MeetingController::class);
 });
