@@ -82,7 +82,7 @@
       <!-- Settings Dropdown -->
       <div class="hidden sm:flex sm:items-center sm:ms-6">
         <div class="mr-3">
-          <img id="preview1" src="{{ isset(Auth::user()->profile_photo_path) ? Auth::user()->profile_photo_path : 'https://res.cloudinary.com/hanheyrpa/image/upload/f_auto,q_auto/lp7cl1lwezs5vgkgzrlt' }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
+          <img id="preview1" src="{{ isset(Auth::user()->profile_photo_path) ? asset('storage/' . Auth::user()->profile_photo_path) : asset('images/user_icon.png') }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
         </div>
 
         <x-dropdown align="right" width="48">
@@ -138,40 +138,90 @@
     </div>
     <!-- 🔽 一覧ページへのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
-      <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-        {{ __('home') }}
+      <x-responsive-nav-link :href="route('employees.show',Auth::user()->id)" :active="request()->routeIs('employees.show')">
+        {{ __('MyProfile') }}
       </x-responsive-nav-link>
     </div>
     <!-- 🔽 作成ページへのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
-      <x-responsive-nav-link :href="route('create')" :active="request()->routeIs('create')">
-        {{ __('Create') }}
+      <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+        <x-slot name="slot">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24" color="#000000">
+            <defs>
+              <style>
+                .cls-6375f1aeb67f094e4896ca23-1 {
+                  fill: none;
+                  stroke: currentColor;
+                  stroke-linecap: square;
+                  stroke-miterlimit: 10;
+                }
+              </style>
+            </defs>
+            <g id="QR_Code" data-name="QR Code">
+              <rect class="cls-6375f1aeb67f094e4896ca23-1" x="1.5" y="1.5" width="8.59" height="8.59"></rect>
+              <polyline class="cls-6375f1aeb67f094e4896ca23-1" points="6.27 7.23 4.36 7.23 4.36 4.36 7.23 4.36"></polyline>
+              <polyline class="cls-6375f1aeb67f094e4896ca23-1" points="18.68 5.32 18.68 7.23 16.77 7.23"></polyline>
+              <polyline class="cls-6375f1aeb67f094e4896ca23-1" points="7.23 19.64 4.36 19.64 4.36 17.73"></polyline>
+              <polyline class="cls-6375f1aeb67f094e4896ca23-1" points="22.5 10.09 13.91 10.09 13.91 1.5 22.5 1.5 22.5 10.09"></polyline>
+              <rect class="cls-6375f1aeb67f094e4896ca23-1" x="13.91" y="13.91" width="8.59" height="8.59"></rect>
+              <rect class="cls-6375f1aeb67f094e4896ca23-1" x="1.5" y="13.91" width="8.59" height="8.59"></rect>
+              <rect class="cls-6375f1aeb67f094e4896ca23-1" x="16.77" y="16.77" width="1.91" height="1.91"></rect>
+            </g>
+          </svg>
+        </x-slot>
       </x-responsive-nav-link>
     </div>
 
-    <!-- Responsive Settings Options -->
-    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-      <div class="px-4">
-        <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-      </div>
+    <div class="pt-2 pb-3 space-y-1">
+      <x-responsive-nav-link :href="route('search.input')" :active="request()->routeIs('search.input')">
+        {{ __('Search') }}
+      </x-responsive-nav-link>
+    </div>
 
-      <div class="mt-3 space-y-1">
-        <x-responsive-nav-link :href="route('profile.edit')">
-          {{ __('Profile') }}
-        </x-responsive-nav-link>
+    <div class="pt-2 pb-3 space-y-1">
+      <x-responsive-nav-link :href="route('tweet.timeline')" :active="request()->routeIs('tweet.timeline')">
+        {{ __('Timeline') }}
+      </x-responsive-nav-link>
+    </div>
 
-        <!-- Authentication -->
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
+    <div class="pt-2 pb-3 space-y-1">
+      <x-responsive-nav-link :href="route('meeting.index')" :active="request()->routeIs('meeting.index')">
+        {{ __('Event') }}
+      </x-responsive-nav-link>
+    </div>
 
-          <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
+    @can('register')
+    <div class="pt-2 pb-3 space-y-1">
+      <x-responsive-nav-link :href="url('/admin/auth/login')" :active="request()->routeIs('admin.login')">
+        管理画面
+      </x-responsive-nav-link>
+    </div>
+    @endcan
+  </div>
+
+  <!-- Responsive Settings Options -->
+  <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+    <div class="px-4">
+      <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
+      <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+    </div>
+
+    <div class="mt-3 space-y-1">
+      <x-responsive-nav-link :href="route('profile.edit')">
+        {{ __('Profile') }}
+      </x-responsive-nav-link>
+
+      <!-- Authentication -->
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+
+        <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
 
                                         this.closest('form').submit();">
-            {{ __('Log Out') }}
-          </x-responsive-nav-link>
-        </form>
-      </div>
+          {{ __('Log Out') }}
+        </x-responsive-nav-link>
+      </form>
     </div>
+  </div>
   </div>
 </nav>
