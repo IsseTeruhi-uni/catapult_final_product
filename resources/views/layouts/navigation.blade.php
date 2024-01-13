@@ -76,7 +76,7 @@
       <!-- Settings Dropdown -->
       <div class="hidden sm:flex sm:items-center sm:ms-6">
         <div class="mr-3">
-          <img id="preview1" src="{{ isset(Auth::user()->profile_photo_path) ? asset('storage/' . Auth::user()->profile_photo_path) : 'https://res.cloudinary.com/hanheyrpa/image/upload/f_auto,q_auto/lp7cl1lwezs5vgkgzrlt' }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
+          <img id="preview1" src="{{ isset(Auth::user()->profile_photo_path) ? Auth::user()->profile_photo_path : 'https://res.cloudinary.com/hanheyrpa/image/upload/f_auto,q_auto/lp7cl1lwezs5vgkgzrlt' }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
         </div>
 
         <x-dropdown align="right" width="48">
