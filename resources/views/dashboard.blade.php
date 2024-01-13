@@ -7,6 +7,127 @@
 
     <div class="mt-16">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+
+            <div class="custom-section">
+                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
+                    <div>
+                        <div class="flex items-center">
+                            <div class="h-13 w-13 bg-gray-50 dark:bg-red-800/20 flex items-center justify-center rounded-lg" style="width: 2.5rem; height: 2.5rem; border: 2px solid #000000;">
+                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24" color="#000000">
+                                    <defs>
+                                        <style>
+                                            .cls-6374f8d9b67f094e4896c626-1 {
+                                                fill: none;
+                                                stroke: currentColor;
+                                                stroke-miterlimit: 10;
+                                            }
+                                        </style>
+                                    </defs>
+                                    <circle class="cls-6374f8d9b67f094e4896c626-1" cx="9.61" cy="5.8" r="4.3"></circle>
+                                    <path class="cls-6374f8d9b67f094e4896c626-1" d="M1.5,19.64l.7-3.47a7.56,7.56,0,0,1,7.41-6.08,7.48,7.48,0,0,1,4.6,1.57"></path>
+                                    <circle class="cls-6374f8d9b67f094e4896c626-1" cx="16.77" cy="16.77" r="5.73"></circle>
+                                    <polyline class="cls-6374f8d9b67f094e4896c626-1" points="19.64 14.86 16.3 18.2 14.39 16.3"></polyline>
+                                </svg>
+                            </div>
+
+                            <h2 class="mt-0 ml-4 text-xl font-semibold text-gray-900 dark:text-white">人物関連</h2>
+                        </div>
+                        <div class="mt-4">
+                            @if ($recentlyViewedUsers->count() > 0)
+                            <div style="height: 300px; overflow-y: auto; border-radius: 10px;">
+                                <table class="text-center w-full border-collapse" style="table-layout: fixed;">
+                                    <thead>
+                                        <tr>
+                                            <th class="py-4 px-6 bg-gray-lightest dark:bg-gray-darkest font-bold uppercase text-lg text-gray-dark dark:text-gray-200 border-b border-grey-light dark:border-grey-dark bg-white">recently Viewed Users</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($recentlyViewedUsers as $userHistory)
+                                        <tr class="hover:bg-gray-lighter">
+                                            <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600">
+                                                <div class="flex items-center justify-center">
+                                                    <div class="mr-3">
+                                                        <img id="preview2" src="{{ isset($userHistory->viewedUser->profile_photo_path) ? asset('storage/' . $userHistory->viewedUser->profile_photo_path) : asset('images/user_icon.png') }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
+                                                    </div>
+                                                    <a href="{{ route('employees.show', $userHistory->viewedUser->id) }}" class="text-left text-gray-dark dark:text-gray-200">{{$userHistory->viewedUser->name}}</a>
+
+                                                    <div class="flex-grow"></div> <!-- 追加 -->
+                                                    <div class="flex items-center ml-3"> <!-- 修正 -->
+                                                        <a href="{{ route('employees.show', $userHistory->viewedUser->id) }}" class="mr-3">
+                                                            <x-secondary-button>
+                                                                {{ __('Show') }}
+                                                            </x-secondary-button>
+                                                        </a>
+                                                        <!--  ここから編集 -->
+                                                        <!-- follow/unfollow ボタン -->
+                                                        @if(Auth::user()->followings()->where('users.id', $userHistory->viewedUser->id)->exists())
+                                                        <!-- unfollow ボタン -->
+                                                        <form action="{{ route('unfollow', $userHistory->viewedUser) }}" method="POST">
+                                                            @csrf
+                                                            <x-primary-button title="フォローをやめる" class="bg-white">
+                                                                <!-- ここにSVGアイコンとフォロワー数を表示 -->
+                                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24" color="#808080">
+                                                                    <defs>
+                                                                        <style>
+                                                                            .cls-6374f8d9b67f094e4896c61d-1 {
+                                                                                fill: yellow;
+                                                                                stroke: currentColor;
+                                                                                stroke-miterlimit: 10;
+                                                                            }
+                                                                        </style>
+                                                                    </defs>
+                                                                    <circle class="cls-6374f8d9b67f094e4896c61d-1" cx="9.61" cy="5.8" r="4.3"></circle>
+                                                                    <path class="cls-6374f8d9b67f094e4896c61d-1" d="M1.5,19.64l.7-3.47a7.56,7.56,0,0,1,7.41-6.08,7.48,7.48,0,0,1,4.6,1.57"></path>
+                                                                    <circle class="cls-6374f8d9b67f094e4896c61d-1" cx="16.77" cy="16.77" r="5.73"></circle>
+                                                                    <line class="cls-6374f8d9b67f094e4896c61d-1" x1="14.39" y1="14.39" x2="19.16" y2="19.16"></line>
+                                                                    <line class="cls-6374f8d9b67f094e4896c61d-1" x1="19.16" y1="14.39" x2="14.39" y2="19.16"></line>
+                                                                </svg>
+
+                                                            </x-primary-button>
+                                                        </form>
+                                                        @else
+                                                        <!-- follow ボタン -->
+                                                        <form action="{{ route('follow', $userHistory->viewedUser) }}" method="POST">
+                                                            @csrf
+                                                            <x-primary-button title="フォローする" class="bg-white">
+                                                                <!-- ここにSVGアイコンとフォロワー数を表示 -->
+                                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24" color="#808080">
+                                                                    <defs>
+                                                                        <style>
+                                                                            .cls-6374f8d9b67f094e4896c60d-1 {
+                                                                                fill: none;
+                                                                                stroke: currentColor;
+                                                                                stroke-miterlimit: 10;
+                                                                            }
+                                                                        </style>
+                                                                    </defs>
+                                                                    <circle class="cls-6374f8d9b67f094e4896c60d-1" cx="9.61" cy="5.8" r="4.3"></circle>
+                                                                    <path class="cls-6374f8d9b67f094e4896c60d-1" d="M1.5,19.64l.7-3.47a7.56,7.56,0,0,1,7.41-6.08,7.43,7.43,0,0,1,4.59,1.57"></path>
+                                                                    <circle class="cls-6374f8d9b67f094e4896c60d-1" cx="16.77" cy="16.77" r="5.73"></circle>
+                                                                    <line class="cls-6374f8d9b67f094e4896c60d-1" x1="13.91" y1="16.77" x2="19.64" y2="16.77"></line>
+                                                                    <line class="cls-6374f8d9b67f094e4896c60d-1" x1="16.77" y1="13.91" x2="16.77" y2="19.64"></line>
+                                                                </svg>
+
+                                                            </x-primary-button>
+                                                        </form>
+                                                        @endif
+                                                        <!-- 🔼 ここまで編集 -->
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            @else
+                            <p class="text-gray-700 dark:text-gray-300">最近の閲覧履歴はありません。</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="custom-section">
                 <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
                     <div>
@@ -79,6 +200,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="custom-section">
                 <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
@@ -185,34 +307,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="custom-section">
-                <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-red-500">
-                    <div>
-                        <div class="flex items-center">
-                            <div class="h-13 w-13 bg-gray-50 dark:bg-red-800/20 flex items-center justify-center rounded-lg" style="width: 2.5rem; height: 2.5rem; border: 2px solid #000000;">
-                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" width="24" height="24" color="#000000">
-                                    <defs>
-                                        <style>
-                                            .cls-6374f8d9b67f094e4896c626-1 {
-                                                fill: none;
-                                                stroke: currentColor;
-                                                stroke-miterlimit: 10;
-                                            }
-                                        </style>
-                                    </defs>
-                                    <circle class="cls-6374f8d9b67f094e4896c626-1" cx="9.61" cy="5.8" r="4.3"></circle>
-                                    <path class="cls-6374f8d9b67f094e4896c626-1" d="M1.5,19.64l.7-3.47a7.56,7.56,0,0,1,7.41-6.08,7.48,7.48,0,0,1,4.6,1.57"></path>
-                                    <circle class="cls-6374f8d9b67f094e4896c626-1" cx="16.77" cy="16.77" r="5.73"></circle>
-                                    <polyline class="cls-6374f8d9b67f094e4896c626-1" points="19.64 14.86 16.3 18.2 14.39 16.3"></polyline>
-                                </svg>
-                            </div>
-
-                            <h2 class="mt-0 ml-4 text-xl font-semibold text-gray-900 dark:text-white">人物関連図</h2>
                         </div>
                     </div>
                 </div>

@@ -23,42 +23,26 @@ class SearchController extends Controller
         $category = $request->category;
         $keyword = $request->keyword;
         $my_company = Auth::user()->company;
-        if ($category == 'name'){
-            $users=User::where('company_id', $my_company->id)->where('name', 'like', '%'.$keyword.'%')->get();
-        }
-        else if ($category =='group'){
-            $users =User ::where('company_id', $my_company->id)->whereHas('group', function($query) use ($keyword){
-                $query->where('name', 'like', '%'.$keyword.'%');
+        if ($category == 'name') {
+            $users = User::where('company_id', $my_company->id)->where('name', 'like', '%' . $keyword . '%')->get();
+        } else if ($category == 'group') {
+            $users = User::where('company_id', $my_company->id)->whereHas('group', function ($query) use ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
+            })->get();
+        } else if ($category == 'post') {
+            $users = User::where('company_id', $my_company->id)->whereHas('post', function ($query) use ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
+            })->get();
+        } else if ($category == 'skill') {
+            $users = User::where('company_id', $my_company->id)->whereHas('skills', function ($query) use ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
+            })->get();
+        } else if ($category == 'hobby') {
+            $users = User::where('company_id', $my_company->id)->whereHas('hobbies', function ($query) use ($keyword) {
+                $query->where('name', 'like', '%' . $keyword . '%');
             })->get();
         }
-        else if ($category =='post'){
-            $users =User ::where('company_id', $my_company->id)->whereHas('post', function($query) use ($keyword){
-                $query->where('name', 'like', '%'.$keyword.'%');
-            })->get();
-        }
-        else if ($category =='skill'){
-            $users =User ::where('company_id', $my_company->id)->whereHas('skills', function($query) use ($keyword){
-                $query->where('name', 'like', '%'.$keyword.'%');
-            })->get();
-        }
-        else if ($category =='hobby'){
-            $users =User ::where('company_id', $my_company->id)->whereHas('hobbies', function($query) use ($keyword){
-                $query->where('name', 'like', '%'.$keyword.'%');
-            })->get();
-        }
-        
-        if (count($users) == 0) {
-            return response()-> view('search.result', compact('users'));
-        }else if (count($users) ==1){
-            $user=$users[0];
-            $company=$user->company;
-            $group=$user->group;
-            $post=$user->post;
-            $skills=$user->skills;
-            $hobbies=$user->hobbies;
-            $followers=$user->followers;
-            return response()->view('employees.show', compact('user','company','group','post','skills','hobbies','followers'));
-        }
+
         return response()->view('employees.index', compact('users'));
     }
 
