@@ -9,6 +9,7 @@ use App\Models\Hobby;
 use App\Models\Post;
 use App\Models\Skill;
 use App\Models\User;
+use Encore\Admin\Auth\Database\Role;
 use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
@@ -59,6 +60,11 @@ class EmployeeController extends Controller
             'post_id' => $request->post_id,
             'description' => $request->description,
         ]);
+
+        if ($request->post_id == 4 && User::where('group_id', $request->group_id)->where('post_id', 4)->count() == 1) {
+            $adminRole = Role::where('name', 'admin')->first();
+            $user->assignRole($adminRole);
+        }
 
         return redirect()->route('dashboard');
     }
