@@ -13,6 +13,8 @@ use App\Models\UserHistory;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary; 
+
 
 class EmployeeController extends Controller
 {
