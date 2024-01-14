@@ -73,7 +73,7 @@ class MeetingController extends Controller
                     $attendance->group_id = $group_id;
                     $attendance->user_id = $user_id;
                     $attendance->meeting_id = $meeting->id;
-                    $attendance->type_id = MeetingAttendanceType::TYPE_NOT_YET;
+                    $attendance->type_id = 99;
 
                     // ミーティング出席保存
                     $attendance->save();
