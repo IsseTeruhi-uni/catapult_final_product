@@ -48,12 +48,19 @@ class EmployeeController extends Controller
 
         $path = null;
         if ($request->hasFile('picture')) {
-            $path = $request->file('picture')->store('profile-icons', 'public');
-        }
-
-        if ($path) {
-            $user->profile_photo_path = $path;
-            $user->save();
+            $file=$request->file('picture');
+            $uploadpath = Cloudinary::upload ( $file->getRealPath(), [
+                // ここの設定は各々で数値をいじって下さい
+                    "height" => 800,
+                    "width" => 800,
+                    "crop" => "fit",
+                    "border" => "20px_solid_rgb:ffffff",
+                    "quality" => "auto",
+                    "fetch_format" => "auto",
+            ])->getSecurePath();
+             //$id = $update->getPublicId();
+             $request->user()->profile_photo_path = $uploadpath;
+             $user->save();
         }
 
         $user->update([
