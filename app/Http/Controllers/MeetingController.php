@@ -54,39 +54,35 @@ class MeetingController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        try {
-            $meeting = new Meeting();
-            $meeting->user_id = auth()->id();
-            $meeting->name = $request->name;
-            $meeting->description = $request->description;
-            $meeting->save();
-            $group_ids = $request->input('group_ids');
-            $user_ids = $request->input('user_ids');
+        // バリデーションが成功した場合
+        $meeting = new Meeting();
+        $meeting->user_id = auth()->id();
+        $meeting->name = $request->name;
+        $meeting->description = $request->description;
 
-            foreach ($group_ids as $group_id) {
-                if (isset($user_ids[$group_id])) {
-                    foreach ($user_ids[$group_id] as $user_id) {
-                        $attendance = new MeetingAttendance();
-                        $attendance->group_id = $group_id;
-                        $attendance->user_id = $user_id;
-                        $attendance->meeting_id = $meeting->id;
-                        $attendance->type_id = MeetingAttendanceType::TYPE_NOT_YET;
-                        $attendance->save();
-                    }
+        // ミーティング保存
+        $meeting->save();
+
+        $group_ids = $request->input('group_ids');
+        $user_ids = $request->input('user_ids');
+
+        foreach ($group_ids as $group_id) {
+            if (isset($user_ids[$group_id])) {
+                foreach ($user_ids[$group_id] as $user_id) {
+                    $attendance = new MeetingAttendance();
+                    $attendance->group_id = $group_id;
+                    $attendance->user_id = $user_id;
+                    $attendance->meeting_id = $meeting->id;
+                    $attendance->type_id = MeetingAttendanceType::TYPE_NOT_YET;
+
+                    // ミーティング出席保存
+                    $attendance->save();
                 }
             }
-        } catch (\Exception $e) {
-            // 例外発生時のエラーメッセージを取得
-            $errorMessage = $e->getMessage();
-
-            // ここで $errorMessage を利用してエラーハンドリングを行う
-
-            // ユーザーにエラーメッセージを表示する
-            return redirect()->route('meeting.index')->with('error', $errorMessage);
         }
-
         return redirect()->route('dashboard');
     }
+
 
 
     private function sendMail(Meeting $meeting, array $user_ids)
