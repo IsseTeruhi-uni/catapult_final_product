@@ -21,7 +21,7 @@
                                 <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600">
                                     <div class="flex items-center justify-center">
                                         <div class="mr-3">
-                                            <img id="preview2" src="{{ isset($user->profile_photo_path) ? asset('storage/' . $user->profile_photo_path) : asset('images/user_icon.png') }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
+                                            <img id="preview7" src="{{ isset($user->profile_photo_path) ?  $user->profile_photo_path :  'https://res.cloudinary.com/hanheyrpa/image/upload/f_auto,q_auto/lp7cl1lwezs5vgkgzrlt' }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
                                         </div>
                                         <a href="{{ route('employees.show', $user->id) }}" class="text-left text-gray-dark dark:text-gray-200">{{$user->name}}</a>
                                         @if ($user->id !== Auth::user()->id)
@@ -56,7 +56,7 @@
                                                         <line class="cls-6374f8d9b67f094e4896c61d-1" x1="14.39" y1="14.39" x2="19.16" y2="19.16"></line>
                                                         <line class="cls-6374f8d9b67f094e4896c61d-1" x1="19.16" y1="14.39" x2="14.39" y2="19.16"></line>
                                                     </svg>
-
+                                                    <span style="color: grey;">{{ $user->followers()->count() }}</span>
                                                 </x-primary-button>
                                             </form>
                                             @else

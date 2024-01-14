@@ -21,7 +21,7 @@
                                 <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600">
                                     <div class="flex items-center justify-center">
                                         <div class="mr-3">
-                                            <img id="preview2" src="{{ isset($user->profile_photo_path) ? asset('storage/' . $user->profile_photo_path) : asset('images/user_icon.png') }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
+                                            <img id="preview5" src="{{ isset($user->profile_photo_path) ?  $user->profile_photo_path :  'https://res.cloudinary.com/hanheyrpa/image/upload/f_auto,q_auto/lp7cl1lwezs5vgkgzrlt' }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
                                         </div>
                                         <a href="{{ route('employees.show', $user->id) }}" class="text-left text-gray-dark dark:text-gray-200">{{$user->name}}</a>
                                         @if ($user->id !== Auth::user()->id)

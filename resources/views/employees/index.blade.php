@@ -9,6 +9,7 @@
     <div class="max-w-7xl mx-auto sm:w-10/12 md:w-8/10 lg:w-8/12">
       <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white dark:bg-gray-800 border-b border-grey-200 dark:border-gray-800">
+          @if($users->count()>0)
           <table class="text-center w-full border-collapse">
             <thead>
               <tr>
@@ -22,7 +23,7 @@
                 <td class="py-4 px-6 border-b border-gray-light dark:border-gray-600">
                   <div class="flex items-center justify-center">
                     <div class="mr-3">
-                      <img id="preview2" src="{{ isset($user->profile_photo_path) ? asset('storage/' . $user->profile_photo_path) : asset('images/user_icon.png') }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
+                      <img id="preview4" src="{{ isset($user->profile_photo_path) ?  $user->profile_photo_path :  'https://res.cloudinary.com/hanheyrpa/image/upload/f_auto,q_auto/lp7cl1lwezs5vgkgzrlt' }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
                     </div>
                     <a href="{{ route('employees.show', $user->id) }}" class="text-left text-gray-dark dark:text-gray-200">{{$user->name}}</a>
                     <div class="flex-grow"></div> <!-- 追加 -->
@@ -94,7 +95,16 @@
               @endforeach
             </tbody>
           </table>
-
+          @else
+          <p class="text-gray-700 dark:text-gray-300">ユーザが見つかりませんでした。</p>
+          <div class="flex items-center justify-end mt-4">
+            <a href="{{ url()->previous() }}">
+              <x-secondary-button class="ml-3">
+                {{ __('Back') }}
+                </x-primary-button>
+            </a>
+          </div>
+          @endif
         </div>
       </div>
     </div>

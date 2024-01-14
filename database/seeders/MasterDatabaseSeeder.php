@@ -21,9 +21,5 @@ class MasterDatabaseSeeder extends Seeder
 
         // 権限作成
         $registerPermission = Permission::create(['name' => 'register']);
-
-
-        // admin役割にregister権限を付与
-        $adminRole->givePermissionTo($registerPermission);
     }
 }

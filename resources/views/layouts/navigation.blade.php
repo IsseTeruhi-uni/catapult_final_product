@@ -82,7 +82,7 @@
       <!-- Settings Dropdown -->
       <div class="hidden sm:flex sm:items-center sm:ms-6">
         <div class="mr-3">
-          <img id="preview1" src="{{ isset(Auth::user()->profile_photo_path) ? asset('storage/' . Auth::user()->profile_photo_path) : asset('images/user_icon.png') }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
+          <img id="preview1" src="{{ isset(Auth::user()->profile_photo_path) ?  Auth::user()->profile_photo_path :  'https://res.cloudinary.com/hanheyrpa/image/upload/f_auto,q_auto/lp7cl1lwezs5vgkgzrlt' }}" alt="" class="w-16 h-16 rounded-full object-cover border-none bg-gray-200" style="width: 45px; height: 45px;">
         </div>
 
         <x-dropdown align="right" width="48">
@@ -197,31 +197,30 @@
       </x-responsive-nav-link>
     </div>
     @endcan
-  </div>
 
-  <!-- Responsive Settings Options -->
-  <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-    <div class="px-4">
-      <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-      <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-    </div>
+    <!-- Responsive Settings Options -->
+    <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+      <div class="px-4">
+        <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
+        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+      </div>
 
-    <div class="mt-3 space-y-1">
-      <x-responsive-nav-link :href="route('profile.edit')">
-        {{ __('Profile') }}
-      </x-responsive-nav-link>
+      <div class="mt-3 space-y-1">
+        <x-responsive-nav-link :href="route('profile.edit')">
+          {{ __('Profile') }}
+        </x-responsive-nav-link>
 
-      <!-- Authentication -->
-      <form method="POST" action="{{ route('logout') }}">
-        @csrf
+        <!-- Authentication -->
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
 
-        <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
+          <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault();
 
                                         this.closest('form').submit();">
-          {{ __('Log Out') }}
-        </x-responsive-nav-link>
-      </form>
+            {{ __('Log Out') }}
+          </x-responsive-nav-link>
+        </form>
+      </div>
     </div>
-  </div>
   </div>
 </nav>
