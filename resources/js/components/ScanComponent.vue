@@ -22,9 +22,10 @@ export default {
   },
   methods: {
     onDetect(result) {
-      this.result = result;
+      this.result = result[0].rawValue;
       this.paused = true;
-    },
+      window.location.href = "https://dec-ph4-final-8232e5fa7788.herokuapp.com/employees/" + this.result;   
+      },
     async onInit(promise) {
       // show loading indicator
       try {
