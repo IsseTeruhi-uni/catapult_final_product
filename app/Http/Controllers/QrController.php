@@ -13,21 +13,21 @@ class QrController extends Controller
     {
         $qrs = [];
         $user = auth()->user();
-        
+
         // 初回ログインの場合QRコード作成画面へ
         if (!$user->qr_code) {
-            return view('Qr.create',compact('user'));
+            return view('Qr.create', compact('user'));
         }
-        
+
         return view('Qr.home', compact('qrs'));
     }
-    
+
 
     public function create()
     {
         $user = auth()->user();
-        
-        return view('Qr.create',compact('user'));
+
+        return view('Qr.create', compact('user'));
     }
 
     public function generate()
@@ -38,8 +38,7 @@ class QrController extends Controller
         $user->qr_code = [];
         $user->save();
 
-        
+
         return redirect()->route('home');
     }
-    
 }
