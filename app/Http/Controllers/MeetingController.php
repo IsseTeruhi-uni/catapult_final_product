@@ -41,9 +41,9 @@ class MeetingController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'group_ids' => 'required|array',
-            'group_ids.*' => 'exists:groups,id', // groups テーブル内に存在する ID であることを確認
+            'group_ids.*' => 'exists:groups,id',
             'user_ids' => 'required|array',
-            'user_ids.*.*' => 'exists:users,id', // users テーブル内に存在する ID であることを確認
+            'user_ids.*.*' => 'exists:users,id',
         ];
 
         // バリデーション実行
@@ -54,19 +54,14 @@ class MeetingController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $result = false;
-
-        DB::beginTransaction();
-
         try {
-
             $meeting = new Meeting();
             $meeting->user_id = auth()->id();
             $meeting->name = $request->name;
             $meeting->description = $request->description;
-            $result = $meeting->save();
-            $group_ids = $request->input('group_ids'); // グループIDの配列を取得
-            $user_ids = $request->input('user_ids'); // ユーザーIDの配列を取得（グループIDをキーとした多次元配列）
+            $meeting->save();
+            $group_ids = $request->input('group_ids');
+            $user_ids = $request->input('user_ids');
 
             foreach ($group_ids as $group_id) {
                 if (isset($user_ids[$group_id])) {
@@ -80,18 +75,19 @@ class MeetingController extends Controller
                     }
                 }
             }
-
-            DB::commit();
-            $result = true;
-
-            $this->sendMail($meeting, $user_ids);
         } catch (\Exception $e) {
+            // 例外発生時のエラーメッセージを取得
+            $errorMessage = $e->getMessage();
 
-            DB::rollBack();
+            // ここで $errorMessage を利用してエラーハンドリングを行う
+
+            // ユーザーにエラーメッセージを表示する
+            return redirect()->route('meeting.index')->with('error', $errorMessage);
         }
 
         return redirect()->route('dashboard');
     }
+
 
     private function sendMail(Meeting $meeting, array $user_ids)
     {
