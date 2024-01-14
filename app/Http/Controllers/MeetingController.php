@@ -8,6 +8,7 @@ use App\Models\Meeting;
 use App\Models\MeetingAttendance;
 use App\Models\MeetingAttendanceType;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -35,7 +36,23 @@ class MeetingController extends Controller
 
     public function store(Request $request)
     {
-        // バリデーションは割愛します
+        // バリデーションルールの定義
+        $rules = [
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'group_ids' => 'required|array',
+            'group_ids.*' => 'exists:groups,id', // groups テーブル内に存在する ID であることを確認
+            'user_ids' => 'required|array',
+            'user_ids.*.*' => 'exists:users,id', // users テーブル内に存在する ID であることを確認
+        ];
+
+        // バリデーション実行
+        $validator = Validator::make($request->all(), $rules);
+
+        // バリデーションが失敗した場合
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $result = false;
 
