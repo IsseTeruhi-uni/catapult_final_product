@@ -59,10 +59,9 @@ class EmployeeController extends Controller
                     "fetch_format" => "auto",
             ])->getSecurePath();
              //$id = $update->getPublicId();
-             $request->user()->profile_photo_path = $uploadpath;
+             $user()->profile_photo_path = $uploadpath;
              $user->save();
         }
-
         $user->update([
             'company_id' => $request->company_id,
             'group_id' => $request->group_id,

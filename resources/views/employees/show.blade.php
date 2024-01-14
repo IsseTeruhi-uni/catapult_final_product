@@ -114,12 +114,6 @@
               </p>
             </div>
             <div class="flex flex-col mb-4">
-              <p class="mb-2 uppercase font-bold text-lg text-gray-800 dark:text-gray-200">description</p>
-              <p class="py-2 px-3 text-gray-800 dark:text-gray-200" id="description">
-                {{$user->description}}
-              </p>
-            </div>
-            <div class="flex flex-col mb-4">
               <p class="mb-2 uppercase font-bold text-lg text-gray-800 dark:text-gray-200">Skills</p>
               @foreach($skills as $skill)
               <p class="py-2 px-3 text-gray-800 dark:text-gray-200" id="skills{{$loop->index}}">
@@ -134,6 +128,12 @@
                 {{$hobby->name}}
               </p>
               @endforeach
+            </div>
+            <div class="flex flex-col mb-4">
+              <p class="mb-2 uppercase font-bold text-lg text-gray-800 dark:text-gray-200">description</p>
+              <p class="py-2 px-3 text-gray-800 dark:text-gray-200" id="description">
+                {{$user->description}}
+              </p>
             </div>
             <div class="flex flex-col mb-4">
               <p class="mb-2 uppercase font-bold text-lg text-gray-800 dark:text-gray-200">Joined_at</p>
