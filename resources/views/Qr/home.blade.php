@@ -13,6 +13,9 @@
           <div class="visible-print text-center">
             {{QrCode::size(100)->generate(auth()->user()->id) }}
             <p>スキャンして元のページに戻ります</p>
+            <div id="app" class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+              <scan-component/>
+            </div>
           </div>
         </div>
       </div>
