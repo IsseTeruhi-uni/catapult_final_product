@@ -24,7 +24,7 @@
                                 <label class="block text-gray-700 dark:text-gray-400 text-sm font-bold mb-2">招待する部署</label>
                                 @foreach($groups as $group)
                                 <div class="flex items-center mb-2">
-                                    <input type="checkbox" name="group_ids[]" value="{{ $group->id }}" id="group_{{ $group->id }}" class="mr-2" required>
+                                    <input type="checkbox" name="group_ids[]" value="{{ $group->id }}" id="group_{{ $group->id }}" class="mr-2">
                                     <label for="group_{{ $group->id }}" class="text-sm">{{ $group->name }}</label>
                                     @foreach($group->groupUsers as $user)
                                     <input type="hidden" name="user_ids[{{ $group->id }}][]" value="{{ $user->id }}">
