@@ -11,6 +11,10 @@
 解決策
 - 会社内での社員名簿に加え、SNSやイベント参加機能を含むサービスを作成する。
 
+技術構成図
+![image](https://github.com/IsseTeruhi-uni/catapult_final_product/assets/131101441/907c6d3e-bc50-4d4f-a4dc-07304169e0f4)
+
+
 実装機能・画面(1部)
 - 個人の基本情報確認機能(氏名、所属、スキル、趣味、etc…)
 
